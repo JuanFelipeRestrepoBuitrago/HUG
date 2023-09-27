@@ -122,9 +122,11 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "login/templates/static"), 
+    os.path.join(BASE_DIR, "page/templates/static"),
 ]
 
 TAILWIND_CSS_ROOT = os.path.join(BASE_DIR, 'login/templates/static')
+TAILWIND_CSS_ROOT = os.path.join(BASE_DIR, 'page/templates/static')
 
 
 

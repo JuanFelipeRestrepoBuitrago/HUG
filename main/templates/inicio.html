@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+    <title>HUG</title>
+</head>
+<body>
+    <div class="general">
+        <nav class="colornav">
+            <div class="divuno">
+                <div class="divdos">
+                    <div class="divv">
+                        <div class="divlogo">
+                            <img class="imglogo" src="" alt="logo">
+                        </div>
+                        <div class="divtres">
+                            <div class="divcuatro">
+                                <a href="#" class="homepage" aria-current="page">Home</a>
+                                <a href="#" class="item">About Us</a>
+                                <a href="#" class="item">Projects</a>
+                                <a href="#" class="item">Calendar</a>
+                                <a href="#" class="item">Reports</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divtres">
+                        <div class="divnueve">
+                            <button type="button" class="botonspanuno">
+                                <span class="spanuno"></span>
+                                <span class="notification">View notifications</span>
+                                <svg class="svguno" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                                </svg>
+                            </button>
+
+                            <div class="divcinco">
+                                <div>
+                                    <button type="button" class="botonspandos" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                        <span class="spandos"></span>
+                                        <span class="spantres">Abrir menú</span>
+                                        <img class="fotoperfil" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?tf=3840x" alt="">
+                                    </button>
+                                </div>
+                                  
+                                <div class="divseis" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                                    <a href="#" class="itemdos" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                    <a href="#" class="itemdos" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                                    <a href="#" class="itemdos" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="divsiete">
+                        <button type="button" class="botonspantres" aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="spancuatro"></span>
+                            <span class="abrirmenu">Open main menu</span>
+                            <svg class="svgdos" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                            <svg class="svgtres" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div> 
+            <div class="menumobile" id="mobile-menu">
+                <div class="divdiez">
+                  <a href="#" class="dash" aria-current="page">Dashboard</a>
+                  <a href="#" class="itemss">Team</a>
+                  <a href="#" class="itemss">Projects</a>
+                  <a href="#" class="itemss">Calendar</a>
+                  <a href="#" class="itemss">Reports</a>
+                </div>
+                <div class="divonce">
+                    <div class="divdoce">
+                        <div class="divimagen">
+                            <img class="foto" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?tf=3840x" alt="">
+                        </div>
+                        <div class="divinfo">
+                            <div class="username">Username</div>
+                            <div class="correo">username@example.com</div>
+                        </div>
+                        <button type="button" class="botonspancuatro">
+                            <span class="spancinco"></span>
+                            <span class="spanseis">View notifications</span>
+                            <svg class="svgcuatro" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="divtrece">
+                        <a href="#" class="iten">Your Profile</a>
+                        <a href="#" class="iten">Settings</a>
+                        <a href="#" class="iten">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    
+        <header class="headerr">
+            <div class="divh1">
+                <h1 class="titulo">Dashboard</h1>
+            </div>
+        </header>
+        <main>
+            <div class="divocho">
+                <div class="divncatorce">
+                    <div class="divquince">
+                        <h2 class="titulo">Escoge diagrama</h2>
+                        <div class="div16">
+                            <div class="div17">
+                                <div class="divdiagramauno">
+                                    <img src="https://us.123rf.com/450wm/dengess/dengess1105/dengess110500009/9611699-gr%C3%A1fico-de-negocio-de-la-semana-se-refleja-en-el-blanco.jpg?ver=6" alt="diagrama de barras" class="imagendiagrama">
+                                </div>
+                                <!-- <div class="mt-4 flex justify-between">
+                                    <div>
+                                        <h3 class="text-sm text-gray-700">
+                                            <a href="#">
+                                                <span aria-hidden="true" class="absolute inset-0"></span>
+                                                Basic Tee
+                                            </a>
+                                        </h3>
+                                        <p class="mt-1 text-sm text-gray-500">Black</p>
+                                    </div>
+                                    <p class="text-sm font-medium text-gray-900">$35</p>
+                                </div> -->
+                            </div>
+                            <!-- More products... -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>   
+</body>
+</html>

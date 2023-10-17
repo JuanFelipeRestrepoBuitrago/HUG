@@ -1,0 +1,37 @@
+{% extends 'base/base_no_nav.html' %}
+
+{% block title %}Iniciar Sesión - HUG{% endblock %}
+
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/usuarios/signin.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main-container">
+        <div class="row">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="alert alert-dismissible alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
+                            <strong class="text-dark">{{ message }}</strong>
+                            <button type="button" class="btn btn-close" data-bs-dismiss="alert">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <form class="custom-card" method="POST">
+            {% csrf_token %}
+            <div class="card-header">
+                <img src="{% static 'img/logo.png' %}" alt="Logo HUG" class="logo">
+                <h3 class="text-center"><i class="fas fa-user"></i> Iniciar Sesión</h3>
+            </div>
+            <div class="item-form">
+
+            </div>
+        </form>
+    </div>
+{% endblock %}

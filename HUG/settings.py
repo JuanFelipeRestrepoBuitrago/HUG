@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'main',
 ]
 
+AUTH_USER_MODEL = 'usuarios.CustomUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -129,6 +131,8 @@ MEDIA_URL = '/media/'
 
 # Path where media files are stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = '/usuario/iniciar_sesion/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

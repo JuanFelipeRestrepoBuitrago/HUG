@@ -60,6 +60,7 @@ body {
     font-size: var(--lg);
     font-weight: bold;
     color: var(--primary-color);
+    margin: 0;
 }
 
 .custom-card-header .logo {

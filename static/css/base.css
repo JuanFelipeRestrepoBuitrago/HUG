@@ -14,8 +14,12 @@
     --background-color: #f0f0f0;
     --primary-color: #2D3748;
     --primary-hover-color: #1F2937;
-    --danger-color: #ff4d4d;
-    --danger-hover-color: #ff8080;
+    --primary-light-color: #237fef;
+    --primary-light-hover-color: #3555b2;
+    --button-primary-color: #4F46E5;
+    --button-primary-hover-color: #3F37C9;
+    --danger-color: #ec3a3a;
+    --danger-hover-color: #a42b2b;
 }
 
 *, *::before, *::after {

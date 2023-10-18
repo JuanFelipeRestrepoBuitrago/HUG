@@ -15,8 +15,8 @@
                     {% for message in messages %}
                         <li class="alert alert-dismissible alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
                             <strong class="text-dark">{{ message }}</strong>
-                            <button type="button" class="btn btn-close" data-bs-dismiss="alert">
-                                <i class="fas fa-times"></i>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert">
+
                             </button>
                         </li>
                     {% endfor %}
@@ -25,13 +25,26 @@
         </div>
         <form class="custom-card" method="POST">
             {% csrf_token %}
-            <div class="card-header">
+            <div class="custom-card-header">
                 <img src="{% static 'img/logo.png' %}" alt="Logo HUG" class="logo">
                 <h3 class="text-center"><i class="fas fa-user"></i> Iniciar Sesión</h3>
             </div>
-            <div class="item-form">
-
+            <div class="form-item">
+                <label for="username">Usuario</label>
+                <input type="text" name="username" id="username" placeholder="Usuario o Email" required>
             </div>
+            <div class="form-item">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" placeholder="Contraseña" required>
+            </div>
+            <div class="form-item">
+                <a href="#" class="primary-text">¿Olvidaste tu contraseña?</a>
+            </div>
+            <div class="form-item">
+                <a href="{% url 'inicio' %}" class="bttn bttn-danger">Cancelar</a>
+                <button type="submit" class="bttn bttn-primary">Iniciar Sesión</button>
+            </div>
+            <p class="text-center">¿No tienes una cuenta? <a href="#" class="primary-text">Regístrate</a></p>
         </form>
     </div>
 {% endblock %}

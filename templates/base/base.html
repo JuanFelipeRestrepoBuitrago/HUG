@@ -37,11 +37,11 @@
             <div class="right">
                 <div class="menu-desktop">
                     {% if user.is_authenticated %}
-                        <a href="#" class="item">
+                        <a href="#" class="item icon">
                             <i class="fas fa-user"></i>
                         </a>
                         <div class="vertical-line bc-white"></div>
-                        <a href="#" class="item">
+                        <a href="#" class="item icon">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     {% else %}
@@ -64,10 +64,10 @@
             <a href="#" class="item">Análisis</a>
             <hr class="horizontal-line bc-white">
             {% if user.is_authenticated %}
-                <a href="#" class="item">
+                <a href="#" class="item icon">
                     <i class="fas fa-user"></i>
                 </a>
-                <a href="#" class="item">
+                <a href="#" class="item icon">
                     <i class="fas fa-sign-out-alt"></i>
                 </a>
             {% else %}

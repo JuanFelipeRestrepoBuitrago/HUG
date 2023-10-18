@@ -156,6 +156,12 @@ main {
     }
 }
 
+.barra-nav .item.icon:hover {
+    text-decoration: none;
+    color: var(--white-hover-color);
+    background-color: var(--primary-hover-color);
+}
+
 .barra-nav .item:hover {
     text-decoration: underline;
     color: var(--white-hover-color);

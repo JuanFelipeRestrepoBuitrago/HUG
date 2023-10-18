@@ -9,7 +9,7 @@
 
 {% block content %}
     <div class="main-container">
-        <div class="row">
+        <div class="messages-container">
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
@@ -26,7 +26,6 @@
         <form class="custom-card" method="POST">
             {% csrf_token %}
             <div class="custom-card-header">
-                <img src="{% static 'img/logo.png' %}" alt="Logo HUG" class="logo">
                 <h3 class="text-center"><i class="fas fa-user"></i> Iniciar Sesión</h3>
             </div>
             <div class="form-item">

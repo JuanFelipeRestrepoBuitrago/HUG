@@ -20,6 +20,7 @@
     --button-primary-hover-color: #3F37C9;
     --danger-color: #ec3a3a;
     --danger-hover-color: #a42b2b;
+    --transparent-color: rgba(255, 255, 255, 0.4);
 }
 
 *, *::before, *::after {

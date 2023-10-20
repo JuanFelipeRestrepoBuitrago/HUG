@@ -11,7 +11,15 @@ def login2(request):
     return render(request, 'login.html')
 
 
-def signin(request):
+def iniciar_sesion(request):
+    """
+    Esta función permite iniciar sesión en el sistema. Si el usuario ya está autenticado, se redirige a la página de inicio.
+    Si el usuario no está autenticado, se muestra el formulario de inicio de sesión. Si el usuario no existe, se muestra un
+    mensaje de error. Si el usuario existe, pero la contraseña es incorrecta, se muestra un mensaje de error.
+
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la solicitud.
+    """
     if request.user.is_authenticated:
         redirect('inicio')
     elif request.method == 'GET':

@@ -26,7 +26,10 @@ def iniciar_sesion(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('inicio')
+                if user.user_type == 'admin':
+                    return redirect('inicio') # TODO: Cambiar a la página de administrador
+                else:
+                    return redirect('inicio')
             else:
                 messages.error(request, 'Usuario o contraseña incorrectos')
                 return redirect('login')

@@ -5,12 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 
-def login2(request):
-    if request.user.is_authenticated:
-        redirect('inicio')
-    return render(request, 'login.html')
-
-
 def iniciar_sesion(request):
     """
     Esta función permite iniciar sesión en el sistema. Si el usuario ya está autenticado, se redirige a la página de inicio.

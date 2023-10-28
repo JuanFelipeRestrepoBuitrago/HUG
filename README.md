@@ -14,6 +14,8 @@ python -m venv venv
 venv\Scripts\activate
 ```
 ### .env file
+The .env file must be created in the root of the project.
+
 Linux and Mac:
 ```
 touch .env

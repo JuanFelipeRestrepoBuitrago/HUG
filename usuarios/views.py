@@ -15,7 +15,7 @@ def iniciar_sesion(request):
     @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la solicitud.
     """
     if request.user.is_authenticated:
-        redirect('inicio')
+        return redirect('inicio')
     elif request.method == 'GET':
         return render(request, 'signin.html')
     elif request.method == 'POST':

@@ -4,7 +4,7 @@ HUG (How U Going). It's the repository for the software engineering course proje
 ### Python
 The version of python used is 3.11.
 ### PostgreSQL
-The version of PostgreSQL used is 15.4.
+Before running the application ensure you have PostgreSQL in your computer. The version of PostgreSQL used is 15.4.
 ### Create a virtual environment
 ```
 python -m venv venv
@@ -33,10 +33,6 @@ DB_PORT=5432
 ### Install the libraries
 ```
 pip install -r libraries.txt
-```
-### Run the application
-```
-python manage.py runserver
 ```
 ## Database
 ### Create the database
@@ -147,4 +143,15 @@ pip install psycopg2==2.9.9
 3.8
 ```
 pip install python-decouple==3.8
+```
+## Run the application
+If is the first time you run the application, you must run the following commands:
+```
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+If you have already run the application, you must run the following commands:
+```
+python manage.py runserver
 ```

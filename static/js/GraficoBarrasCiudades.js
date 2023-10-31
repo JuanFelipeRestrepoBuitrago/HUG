@@ -1,51 +1,51 @@
-
-
-
-
 am5.ready(function() {
+  // Crear el elemento raíz
+  var root = am5.Root.new("chartdiv");
 
-// Create root element
-// https://www.amcharts.com/docs/v5/getting-started/#Root_element
-var root = am5.Root.new("chartdiv");
+  // Establecer temas
+  root.setThemes([
+    am5themes_Animated.new(root)
+  ]);
 
-
-// Set themes
-// https://www.amcharts.com/docs/v5/concepts/themes/
-root.setThemes([
-  am5themes_Animated.new(root)
-]);
-
-
-// Create chart
-// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-var chart = root.container.children.push(am5percent.PieChart.new(root, {
-  layout: root.verticalLayout
-}));
+  // Crear el gráfico de pastel
+  var chart = root.container.children.push(am5percent.PieChart.new(root, {
+    layout: root.verticalLayout
+  }));
 
 
-// Create series
-// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-var series = chart.series.push(am5percent.PieSeries.new(root, {
-  valueField: "value",
-  categoryField: "category"
-}));
+  // Crear la serie de pastel
+  var series = chart.series.push(am5percent.PieSeries.new(root, {
+    valueField: "total_egresados",
+    categoryField: "ciudad",
+    alignLabels: false
+  }));
 
 
-// Set data
-// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-series.data.setAll([
-  { value: 10, category: "One" },
-  { value: 9, category: "Two" },
-  { value: 6, category: "Three" },
-  { value: 5, category: "Four" },
-  { value: 4, category: "Five" },
-  { value: 3, category: "Six" },
-  { value: 1, category: "Seven" },
-]);
+  // Obtener los datos y establecerlos en la serie
+series.data.setAll([{
+  category: "Lithuania",
+  value: 501.9
+}, {
+  category: "Czechia",
+  value: 301.9
+}, {
+  category: "Ireland",
+  value: 201.1
+}, {
+  category: "Germany",
+  value: 165.8
+}, {
+  category: "Australia",
+  value: 139.9
+}, {
+  category: "Austria",
+  value: 128.3
+}, {
+  category: "UK",
+  value: 99
+}]);
 
-
-// Play initial series animation
-// https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
-series.appear(1000, 100);
-
-}); // end am5.ready()
+  series.labels.template.setAll({
+    visible: false
+  });
+});

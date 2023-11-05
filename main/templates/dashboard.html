@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}HUG{% endblock %}
+
+
+{% block content %}
+
+    {% block extra_head %}
+        <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+       <link rel="stylesheet" href="{% static 'css/main/Dashboard.css' %}">
+    {% endblock %}
+
+    <h1>MAMAGUEVO</h1>
+
+    <!-- Gafico de Barras Ciudades -->
+    <div class="container" >
+        <div class="row">
+
+            <div class="col-md-6" id="pie">
+                <div class="card-header">
+                    <div class="card-header" id="texto">
+                        <i class="fas fa-table me-1"></i>
+                        Filtro Manual
+                    </div>
+                    <!-- div -->
+                    <div id="chartdiv1" class="chartdiv"></div>
+                </div>
+
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="chartSelect">
+                  <option value="1">Ciudades con más Egresados</option>
+                  <option value="2">Nivel educativo de los Egresados</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card-header">
+                    <div class="card-header" id="texto">
+                        <i class="fas fa-table me-1"></i>
+                        Salario promedio por nivel educativo
+                    </div>
+                    <!-- div -->
+                    <div id="chartdiv2" class="chartdiv"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="tablota">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Filtro Manual
+            </div>
+            <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Ciudad</th>
+                    <th>Experiencia</th>
+                    <th>Salario</th>
+                    <th>Educación</th>
+                    <th>Fecha Nacimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if egresados %}
+                    {% for egresado in egresados %}
+                        <tr>
+                            <td>{{ egresado.ciudad }}</td>
+                            <td>{{ egresado.experiencia_meses }}</td>
+                            <td>$ {{ egresado.salario }}</td>
+                            <td>{{ egresado.nivel_educativo }}</td>
+                            <td>{{ egresado.fecha_nacimiento }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Ciudad</th>
+                    <th>Experiencia</th>
+                    <th>Salario</th>
+                    <th>Educación</th>
+                    <th>Fecha Nacimiento</th>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+    </div>
+
+
+    {% block scripts %}
+
+        <!-- Tabla de Filtros -->
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#example').DataTable();
+            });
+        </script>
+
+        <!-- Recursos de Amchart -->
+        <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+
+        <!-- Script Generador de Graficas -->
+        <script src={% static 'js/Grafica.js' %}></script>
+    {% endblock %}
+
+
+{% endblock %}

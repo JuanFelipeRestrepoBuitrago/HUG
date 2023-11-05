@@ -13,7 +13,6 @@
 
     <h1>MAMAGUEVO</h1>
 
-
     <!-- Gafico de Barras Ciudades -->
     <div class="container" >
         <div class="row">
@@ -24,7 +23,8 @@
                         <i class="fas fa-table me-1"></i>
                         Filtro Manual
                     </div>
-                    <div id="chartdiv"></div>
+                    <!-- div -->
+                    <div id="chartdiv1" class="chartdiv"></div>
                 </div>
 
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="chartSelect">
@@ -34,8 +34,14 @@
             </div>
 
             <div class="col-md-6">
-                <h1>Columna 1</h1>
-                <p>Este es el contenido de la columna 1.</p>
+                <div class="card-header">
+                    <div class="card-header" id="texto">
+                        <i class="fas fa-table me-1"></i>
+                        Salario promedio por nivel educativo
+                    </div>
+                    <!-- div -->
+                    <div id="chartdiv2" class="chartdiv"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -98,9 +104,10 @@
         <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
         <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
         <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 
-        <!-- Grafico de Pastel -->
-        <script src={% static 'js/GraficaPie.js' %}></script>
+        <!-- Script Generador de Graficas -->
+        <script src={% static 'js/Grafica.js' %}></script>
     {% endblock %}
 
 

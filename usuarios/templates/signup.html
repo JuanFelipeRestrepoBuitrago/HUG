@@ -1,0 +1,68 @@
+{% extends 'base/base_no_nav.html' %}
+
+{% block title %}Registrarse - HUG{% endblock %}
+
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/usuarios/signin.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main-container">
+        <div class="messages-container">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="alert alert-dismissible alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
+                            <strong class="text-dark">{{ message }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert">
+
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <form class="custom-card" method="POST">
+            {% csrf_token %}
+            <div class="custom-card-header">
+                <h3 class="text-center"><i class="fas fa-user"></i> Registrarse</h3>
+            </div>
+            <div class="form-item">
+                <label for="username">Usuario</label>
+                <input type="text" name="username" id="username" placeholder="Nombre de Usuario" required>
+            </div>
+            <div class="form-item">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-item">
+                <label for="first_name">Nombres</label>
+                <input type="text" name="first_name" id="first_name" placeholder="Nombres" required>
+            </div>
+            <div class="form-item">
+                <label for="last_name">Apellidos</label>
+                <input type="text" name="last_name" id="last_name" placeholder="Apellidos" required>
+            </div>
+            <div class="form-item">
+                <label for="institution">Institución</label>
+                <input type="text" name="institution" id="institution" placeholder="Institución" required>
+            </div>
+            <div class="form-item">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" placeholder="Contraseña" required>
+            </div>
+            <div class="form-item">
+                <label for="confirm_password">Confirmar Contraseña</label>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirmar Contraseña" required>
+            </div>
+            <div class="form-item">
+                <a href="{% url 'login' %}" class="primary-text">¿Ya tienes una cuenta?</a>
+            </div>
+            <div class="form-item">
+                <a href="{% url 'inicio' %}" class="bttn bttn-danger">Cancelar</a>
+                <button type="submit" class="bttn bttn-primary">Registrarse</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -41,13 +41,13 @@
                             <i class="fas fa-user"></i>
                         </a>
                         <div class="vertical-line bc-white"></div>
-                        <a href="#" class="item icon">
+                        <a href="{% url 'logout' %}" class="item icon">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     {% else %}
                         <a href="{% url 'login' %}" class="item">Iniciar sesión</a>
                         <div class="vertical-line bc-white"></div>
-                        <a href="#" class="item">Registrarse</a>
+                        <a href="{% url 'signup' %}" class="item">Registrarse</a>
                     {% endif %}
                 </div>
                 <div class="icon-mobile" id="buttonMenuMobile">
@@ -67,12 +67,12 @@
                 <a href="#" class="item icon">
                     <i class="fas fa-user"></i>
                 </a>
-                <a href="#" class="item icon">
+                <a href="{% url 'logout' %}" class="item icon">
                     <i class="fas fa-sign-out-alt"></i>
                 </a>
             {% else %}
                 <a href="{% url 'login' %}" class="item">Iniciar sesión</a>
-                <a href="#" class="item">Registrarse</a>
+                <a href="{% url 'signup' %}" class="item">Registrarse</a>
             {% endif %}
         </div>
     </nav>

@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'usuarios',
     'main',
     'crudEgresados',
-    'rest_framework',
 ]
 
 AUTH_USER_MODEL = 'usuarios.CustomUser'

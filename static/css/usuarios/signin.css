@@ -84,6 +84,13 @@ body {
     justify-content: space-between;
 }
 
+.form-item:nth-child(11) {
+    flex-direction: row;
+    margin-bottom: 24px;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .form-item label {
     font-size: var(--sm);
     font-weight: bold;
@@ -102,6 +109,7 @@ body {
     font-weight: normal;
     color: var(--black-color);
     outline: none;
+    width: 100%;
 
     @media (max-width: 464px){
         font-size: var(--xs);

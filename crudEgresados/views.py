@@ -20,6 +20,7 @@ def egresados(request):
     if request.method == 'GET':
         # Se obtienen los egresados del sistema
         egresados_objects = Egresado.objects.all()[:1000]
+        print(egresados_objects[0].fecha_nacimiento)
         # Renderiza la página de egresados con los egresados obtenidos
         return render(request, 'egresados.html', {
             'egresados': egresados_objects

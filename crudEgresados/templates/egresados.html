@@ -93,7 +93,13 @@
                                     <div class="actions">
                                         <form method="POST">
                                             {% csrf_token %}
-                                            <button type="button" data-formaction="{% url 'editar_egresado' egresado.id %}" class="bttn bttn-dark-primary">
+                                            <button type="button" data-formaction="{% url 'editar_egresado' egresado.id %}"
+                                                    data-egresado-fecha-nacimiento="{{ egresado.fecha_nacimiento|date:'Y-m-d' }}"
+                                                    data-egresado-nivel-educativo="{{ egresado.nivel_educativo }}"
+                                                    data-egresado-salario="{{ egresado.salario }}"
+                                                    data-egresado-experiencia-meses="{{ egresado.experiencia_meses }}"
+                                                    data-egresado-ciudad="{{ egresado.ciudad }}"
+                                                    class="bttn bttn-dark-primary">
                                                  <i class="fas fa-edit"></i>
                                              </button>
                                             <button type="submit" formaction="{% url 'eliminar_egresado' egresado.id %}" class="bttn bttn-danger">

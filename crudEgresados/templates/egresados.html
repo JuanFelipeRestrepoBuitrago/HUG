@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
 {% block title %}Egresados{% endblock %}
 
@@ -7,7 +8,7 @@
 
 {% block content %}
     <section class="main-container">
-        <h1 class="text-center">Egresados</h1>
+        <h1 class="text-center title">Egresados</h1>
         <div class="messages-container">
             {% if messages %}
                 <ul class="messages">
@@ -22,7 +23,7 @@
                 </ul>
             {% endif %}
         </div>
-        <form action="{% url 'egresados' %}" method="post" class="custom-card">
+        <form action="{% url 'egresados' %}" method="post" class="custom-card creation-form">
             {% csrf_token %}
             <div class="form-item">
                 <label for="fecha_nacimiento">Fecha de Nacimiento</label>
@@ -30,7 +31,20 @@
             </div>
             <div class="form-item">
                 <label for="nivel_educativo">Nivel Educativo</label>
-                <input type="text" name="nivel_educativo" id="nivel_educativo" placeholder="Nivel Educativo">
+                <select name="nivel_educativo" id="nivel_educativo">
+                    <option disabled selected value="">Seleccione un nivel educativo</option>
+                    <option value="Bachillerato (grados 6°, 7° u 8°)">Bachillerato (grados 6°, 7° u 8°)</option>
+                    <option value="Bachillerato (grados 9°, 10° y 11°)">Bachillerato (grados 9°, 10° y 11°)</option>
+                    <option value="Bachillerato completo">Bachillerato completo</option>
+                    <option value="Básica primaria">Básica primaria</option>
+                    <option value="Doctorado">Doctorado</option>
+                    <option value="Especialización/ Maestría">Especialización/ Maestría</option>
+                    <option value="Profesional">Profesional</option>
+                    <option value="Técnico">Técnico</option>
+                    <option value="Tecnólogo">Tecnólogo</option>
+                    <option value="No tengo estudios">No tengo estudios</option>
+                </select>
+                <div class="caret"></div>
             </div>
             <div class="form-item">
                 <label for="salario">Salario</label>
@@ -46,11 +60,12 @@
             </div>
             <div class="form-group-item buttons-container">
                 <button type="reset" class="btnn btnn-secondary">Limpiar</button>
-                <button type="submit" class="btnn btnn-primary">Guardar</button>
+                <button type="submit" class="btnn btnn-primary">Crear</button>
             </div>
         </form>
     </section>
 {% endblock %}
 
 {% block js %}
+    <script src="{% static 'js/crud/egresados.js' %}"></script>
 {% endblock %}

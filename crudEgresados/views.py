@@ -38,11 +38,11 @@ def egresados(request):
         if ciudad == '' or ciudad == ' ':
             ciudad = None
 
-        print(fecha_nacimiento)
-        print(nivel_educativo)
-        print(salario)
-        print(experiencia_meses)
-        print(ciudad)
-
-        return redirect('egresados')
+        try:
+            Egresado.crear_egresado(fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad)
+            messages.success(request, 'Egresado creado correctamente')
+        except IntegrityError as e:
+            messages.error(request, e)
+        finally:
+            return redirect('egresados')
 

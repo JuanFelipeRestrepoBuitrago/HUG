@@ -29,7 +29,7 @@ def iniciar_sesion(request):
             # Si el usuario es un administrador, se redirige a la página de administración, de lo contrario,
             # se redirige a la página de inicio.
             if usuario.user_type == 'admin':
-                return redirect('inicio')  # TODO: Cambiar a admin
+                return redirect('egresados')
             else:
                 return redirect('inicio')
         except CustomUser.DoesNotExist:

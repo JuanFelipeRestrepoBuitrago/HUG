@@ -281,3 +281,75 @@ td {
         font-size: var(--xxs);
     }
 }
+
+#modal {
+    max-width: 900px;
+    margin: auto;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    padding: 40px 32px;
+    border: none;
+    outline: none;
+    width: 100%;
+    position: relative;
+
+    @media (max-width: 768px) {
+        padding: 20px 16px;
+    }
+}
+
+#modal h1 {
+    font-size: var(--xl);
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.edition-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    height: 100%;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.edition-form :last-child {
+    @media (min-width: 768px) {
+        grid-column: 1 / 3;
+    }
+}
+
+#modal .bttn-close {
+    border-radius: 50%;
+    background-color: var(--transparent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    height: auto;
+    width: auto;
+    padding: 4px 6px;
+}
+
+.bttn-close i {
+    color: var(--black-color);
+    font-size: var(--md);
+    transition: color 0.3s;
+}
+
+.bttn-close:hover i, .bttn-close:focus i {
+    color: var(--white-color);
+}
+
+#modal .bttn-close:hover, #modal .bttn-close:focus {
+    background-color: var(--black-hover-color);
+}
+

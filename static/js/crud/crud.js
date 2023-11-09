@@ -20,18 +20,14 @@ select.addEventListener('change', () => {
     caret.classList.remove('caret-rotate');
 });
 
-// .caret {
-//     border-left: 4px solid transparent;
-//     border-right: 4px solid transparent;
-//     border-top: 5px solid var(--black);
-//     position: absolute;
-//     right: 10px;
-//     top: 65%;
-//     width: 0;
-//     height: 0;
-//     transition: 0.3s;
-// }
-//
-// .caret-rotate {
-//     transform: rotate(180deg);
-// }
+// Obtener los botones de editar
+const editButtons = document.querySelectorAll('[data-formaction]');
+// Obtener el modal
+const modal = document.querySelector('#modal');
+
+// Mostrar el modal al hacer clic en un botón de editar
+editButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        modal.showModal();
+    });
+});

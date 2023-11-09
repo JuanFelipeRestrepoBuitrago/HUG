@@ -93,7 +93,7 @@
                                     <div class="actions">
                                         <form method="POST">
                                             {% csrf_token %}
-                                            <button type="submit" formaction="#" class="bttn bttn-dark-primary">
+                                            <button type="button" data-formaction="{% url 'editar_egresado' egresado.id %}" class="bttn bttn-dark-primary">
                                                  <i class="fas fa-edit"></i>
                                              </button>
                                             <button type="submit" formaction="{% url 'eliminar_egresado' egresado.id %}" class="bttn bttn-danger">
@@ -120,6 +120,53 @@
             </div>
         </div>
     </section>
+
+    <dialog id="modal">
+        <h1 class="text-center title">Editar Egresado</h1>
+        <form method="post" class="edition-form">
+            {% csrf_token %}
+            <div class="form-item">
+                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Fecha de nacimiento">
+            </div>
+            <div class="form-item">
+                <label for="nivel_educativo">Nivel Educativo</label>
+                <select name="nivel_educativo" id="nivel_educativo">
+                    <option selected value="">Seleccione un nivel educativo</option>
+                    <option value="Bachillerato (grados 6°, 7° u 8°)">Bachillerato (grados 6°, 7° u 8°)</option>
+                    <option value="Bachillerato (grados 9°, 10° y 11°)">Bachillerato (grados 9°, 10° y 11°)</option>
+                    <option value="Bachillerato completo">Bachillerato completo</option>
+                    <option value="Básica primaria">Básica primaria</option>
+                    <option value="Doctorado">Doctorado</option>
+                    <option value="Especialización/ Maestría">Especialización/ Maestría</option>
+                    <option value="Profesional">Profesional</option>
+                    <option value="Técnico">Técnico</option>
+                    <option value="Tecnólogo">Tecnólogo</option>
+                    <option value="No tengo estudios">No tengo estudios</option>
+                </select>
+                <div class="caret"></div>
+            </div>
+            <div class="form-item">
+                <label for="salario">Salario</label>
+                <input type="number" name="salario" id="salario" placeholder="Salario">
+            </div>
+            <div class="form-item">
+                <label for="experiencia_meses">Experiencia en Meses</label>
+                <input type="number" name="experiencia_meses" id="experiencia_meses" placeholder="Experiencia en Meses">
+            </div>
+            <div class="form-item">
+                <label for="ciudad">Ciudad</label>
+                <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad">
+            </div>
+            <div class="form-item buttons-container">
+                <button type="reset" class="bttn bttn-primary">Limpiar</button>
+                <button type="submit" class="bttn bttn-warning">Guardar</button>
+            </div>
+        </form>
+        <button type="button" class="bttn bttn-close" data-modal-close>
+            <i class="fas fa-times"></i>
+        </button>
+    </dialog>
 {% endblock %}
 
 {% block js %}

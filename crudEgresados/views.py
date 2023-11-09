@@ -14,14 +14,18 @@ def egresados(request):
     @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
     @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
     """
+    # Si el usuario es un usuario normal, se redirige a la página de inicio
     if request.user.user_type == 'user':
         return redirect('inicio')
     if request.method == 'GET':
+        # Se obtienen los egresados del sistema
         egresados_objects = Egresado.objects.all()[:1000]
+        # Renderiza la página de egresados con los egresados obtenidos
         return render(request, 'egresados.html', {
             'egresados': egresados_objects
         })
     elif request.method == 'POST':
+        # Se obtienen los datos del formulario
         fecha_nacimiento = request.POST.get('fecha_nacimiento')
         if fecha_nacimiento == '' or fecha_nacimiento == ' ':
             fecha_nacimiento = None
@@ -39,6 +43,7 @@ def egresados(request):
             ciudad = None
 
         try:
+            # Se crea el egresado
             Egresado.crear_egresado(fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad)
             messages.success(request, 'Egresado creado correctamente')
         except IntegrityError as e:
@@ -57,7 +62,56 @@ def eliminar_egresado(request, egresado_id):
     """
     if request.user.user_type == 'user':
         return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('egresados')
+
+    # Se obtiene el egresado a eliminar
     egresado = Egresado.objects.get(id=egresado_id)
+    # Se elimina el egresado
     egresado.eliminar_egresado()
+
     messages.success(request, 'Egresado eliminado correctamente')
     return redirect('egresados')
+
+
+@login_required
+def editar_egresado(request, egresado_id):
+    """
+    Esta función permite editar un egresado del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param egresado_id: int, identificador del egresado a editar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('egresados')
+
+    # Se obtiene el egresado a editar
+    egresado = Egresado.objects.get(id=egresado_id)
+
+    # Se obtienen los datos del formulario
+    fecha_nacimiento = request.POST.get('fecha_nacimiento')
+    if fecha_nacimiento == '' or fecha_nacimiento == ' ':
+        fecha_nacimiento = None
+    nivel_educativo = request.POST.get('nivel_educativo')
+    if nivel_educativo == '' or nivel_educativo == ' ':
+        nivel_educativo = None
+    salario = request.POST.get('salario')
+    if salario == '' or salario == ' ':
+        salario = None
+    experiencia_meses = request.POST.get('experiencia_meses')
+    if experiencia_meses == '' or experiencia_meses == ' ':
+        experiencia_meses = None
+    ciudad = request.POST.get('ciudad')
+    if ciudad == '' or ciudad == ' ':
+        ciudad = None
+
+    try:
+        # Se actualiza el egresado
+        egresado.actualizar_egresado(fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad)
+        messages.success(request, 'Egresado actualizado correctamente')
+    except IntegrityError as e:
+        messages.error(request, e)
+    finally:
+        return redirect('egresados')

@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import egresados, eliminar_egresado
+from .views import *
 
 urlpatterns = [
-    path('', egresados, name='egresados'),
-    path('eliminar_egresado/<int:egresado_id>', eliminar_egresado, name='eliminar_egresado')
+    path('egresados', egresados, name='egresados'),
+    path('egresados/eliminar/<int:egresado_id>', eliminar_egresado, name='eliminar_egresado'),
+    path('egresados/editar/<int:egresado_id>', editar_egresado, name='editar_egresado')
 ]

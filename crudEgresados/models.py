@@ -36,18 +36,15 @@ class Egresado(models.Model):
         @param experiencia_meses: experiencia en meses del egresado
         @param ciudad: ciudad del egresado
         """
-        if fecha_nacimiento is not None:
-            self.fecha_nacimiento = fecha_nacimiento
-        if nivel_educativo is not None:
-            self.nivel_educativo = nivel_educativo
-        if salario is not None:
-            self.salario = salario
-        if experiencia_meses is not None:
-            self.experiencia_meses = experiencia_meses
-        if ciudad is not None:
-            self.ciudad = ciudad
+        self.fecha_nacimiento = fecha_nacimiento
+        self.nivel_educativo = nivel_educativo
+        self.salario = salario
+        self.experiencia_meses = experiencia_meses
+        self.ciudad = ciudad
 
         self.save()
+
+        return self
 
     def eliminar_egresado(self):
         """

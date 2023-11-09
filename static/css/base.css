@@ -20,6 +20,8 @@
     --button-primary-hover-color: #3F37C9;
     --danger-color: #ec3a3a;
     --danger-hover-color: #a42b2b;
+    --warning-color: #F29E0B;
+    --warning-hover-color: #a26c0b;
     --transparent-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -48,7 +50,7 @@ body {
 main {
     margin-top: 72px;
     width: 100%;
-    height: 200vh;
+    max-height: 200vh;
 }
 
 .bc-white {

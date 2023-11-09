@@ -5,7 +5,8 @@
 
 {% block css %}
     {# Datatables #}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="{% static 'css/crud/crud.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -35,7 +36,7 @@
                 <div class="form-item">
                     <label for="nivel_educativo">Nivel Educativo</label>
                     <select name="nivel_educativo" id="nivel_educativo">
-                        <option disabled selected value="">Seleccione un nivel educativo</option>
+                        <option selected value="">Seleccione un nivel educativo</option>
                         <option value="Bachillerato (grados 6°, 7° u 8°)">Bachillerato (grados 6°, 7° u 8°)</option>
                         <option value="Bachillerato (grados 9°, 10° y 11°)">Bachillerato (grados 9°, 10° y 11°)</option>
                         <option value="Bachillerato completo">Bachillerato completo</option>
@@ -61,9 +62,9 @@
                     <label for="ciudad">Ciudad</label>
                     <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad">
                 </div>
-                <div class="form-group-item buttons-container">
-                    <button type="reset" class="btnn btnn-secondary">Limpiar</button>
-                    <button type="submit" class="btnn btnn-primary">Crear</button>
+                <div class="form-item buttons-container">
+                    <button type="reset" class="bttn bttn-primary">Limpiar</button>
+                    <button type="submit" class="bttn bttn-warning">Crear</button>
                 </div>
             </form>
         </div>
@@ -89,12 +90,18 @@
                                 <td>{{ egresado.experiencia_meses }}</td>
                                 <td>{{ egresado.ciudad }}</td>
                                 <td>
-                                    <a href="#" class="btnn btnn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="#" class="btnn btnn-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
+                                    <div class="actions">
+                                        <form action="#" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" formaction="#" class="bttn bttn-dark-primary">
+                                                 <i class="fas fa-edit"></i>
+                                             </button>
+                                            <button type="submit" formaction="#" class="bttn bttn-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
                                 </td>
                             </tr>
                         {% endfor %}
@@ -117,10 +124,9 @@
 
 {% block js %}
     {#  JQuery  #}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     {#  Datatables  #}
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#rows').DataTable({
@@ -142,5 +148,5 @@
             });
         });
     </script>
-    <script src="{% static 'js/crud/egresados.js' %}"></script>
+    <script src="{% static 'js/crud/crud.js' %}"></script>
 {% endblock %}

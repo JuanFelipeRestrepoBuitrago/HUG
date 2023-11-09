@@ -17,7 +17,7 @@ def egresados(request):
     if request.user.user_type == 'user':
         return redirect('inicio')
     if request.method == 'GET':
-        egresados_objects = Egresado.objects.all()
+        egresados_objects = Egresado.objects.all()[:1000]
         return render(request, 'egresados.html', {
             'egresados': egresados_objects
         })

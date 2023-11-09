@@ -29,9 +29,17 @@
                     <a href="{% url 'inicio' %}" class="home">
                         <i class="fas fa-home"></i>
                     </a>
-                    <a href="#" class="item">Dashboard</a>
-                    <a href="#" class="item">Predicciones</a>
-                    <a href="#" class="item">Análisis</a>
+                    {% if user.user_type == 'admin' %}
+                    	<a href="{% url 'egresados' %}" class="item">Egresados</a>
+                        <a href="#" class="item">Estudios</a>
+                        <a href="#" class="item">Experiencia</a>
+                        <a href="#" class="item">Sectores</a>
+                        <a href="#" class="item">Sectores-Egresados</a>
+                    {% else %}
+                        <a href="{% url 'Dashboard' %}" class="item">Dashboard</a>
+                        <a href="#" class="item">Predicciones</a>
+                        <a href="#" class="item">Análisis</a>
+                    {% endif %}
                 </div>
             </div>
             <div class="right">
@@ -59,9 +67,17 @@
             <a href="{% url 'inicio' %}" class="home">
                 <i class="fas fa-home"></i>
             </a>
-            <a href="{% url 'Dashboard' %}" class="item">Dashboard</a>
-            <a href="#" class="item">Predicciones</a>
-            <a href="#" class="item">Análisis</a>
+            {% if user.user_type == 'admin' %}
+                <a href="{% url 'egresados' %}" class="item">Egresados</a>
+                <a href="#" class="item">Estudios</a>
+                <a href="#" class="item">Experiencia</a>
+                <a href="#" class="item">Sectores</a>
+                <a href="#" class="item">Sectores-Egresados</a>
+            {% else %}
+                <a href="{% url 'Dashboard' %}" class="item">Dashboard</a>
+                <a href="#" class="item">Predicciones</a>
+                <a href="#" class="item">Análisis</a>
+            {% endif %}
             <hr class="horizontal-line bc-white">
             {% if user.is_authenticated %}
                 <a href="#" class="item icon">

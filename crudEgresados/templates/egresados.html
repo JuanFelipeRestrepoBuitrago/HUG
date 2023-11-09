@@ -1,12 +1,55 @@
 {% extends 'base/base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}Egresados{% endblock %}
 
 {% block css %}
 {% endblock %}
 
 {% block content %}
-    <h1>Hola Mundo</h1>
+    <section class="main-container">
+        <h1 class="text-center">Egresados</h1>
+        <div class="messages-container">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="alert alert-dismissible alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
+                            <strong class="text-dark">{{ message }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert">
+
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <form action="{% url 'egresados' %}" method="post" class="custom-card">
+            {% csrf_token %}
+            <div class="form-item">
+                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="Fecha de nacimiento">
+            </div>
+            <div class="form-item">
+                <label for="nivel_educativo">Nivel Educativo</label>
+                <input type="text" name="nivel_educativo" id="nivel_educativo" placeholder="Nivel Educativo">
+            </div>
+            <div class="form-item">
+                <label for="salario">Salario</label>
+                <input type="number" name="salario" id="salario" placeholder="Salario">
+            </div>
+            <div class="form-item">
+                <label for="experiencia_meses">Experiencia en Meses</label>
+                <input type="number" name="experiencia_meses" id="experiencia_meses" placeholder="Experiencia en Meses">
+            </div>
+            <div class="form-item">
+                <label for="ciudad">Ciudad</label>
+                <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad">
+            </div>
+            <div class="form-group-item buttons-container">
+                <button type="reset" class="btnn btnn-secondary">Limpiar</button>
+                <button type="submit" class="btnn btnn-primary">Guardar</button>
+            </div>
+        </form>
+    </section>
 {% endblock %}
 
 {% block js %}

@@ -21,4 +21,28 @@ def egresados(request):
         return render(request, 'egresados.html', {
             'egresados': egresados_objects
         })
+    elif request.method == 'POST':
+        fecha_nacimiento = request.POST.get('fecha_nacimiento')
+        if fecha_nacimiento == '' or fecha_nacimiento == ' ':
+            fecha_nacimiento = None
+        nivel_educativo = request.POST.get('nivel_educativo')
+        if nivel_educativo == '' or nivel_educativo == ' ':
+            nivel_educativo = None
+        salario = request.POST.get('salario')
+        if salario == '' or salario == ' ':
+            salario = None
+        experiencia_meses = request.POST.get('experiencia_meses')
+        if experiencia_meses == '' or experiencia_meses == ' ':
+            experiencia_meses = None
+        ciudad = request.POST.get('ciudad')
+        if ciudad == '' or ciudad == ' ':
+            ciudad = None
+
+        print(fecha_nacimiento)
+        print(nivel_educativo)
+        print(salario)
+        print(experiencia_meses)
+        print(ciudad)
+
+        return redirect('egresados')
 

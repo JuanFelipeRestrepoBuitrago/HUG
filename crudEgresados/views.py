@@ -46,3 +46,18 @@ def egresados(request):
         finally:
             return redirect('egresados')
 
+
+@login_required
+def eliminar_egresado(request, egresado_id):
+    """
+    Esta función permite eliminar un egresado del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param egresado_id: int, identificador del egresado a eliminar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    egresado = Egresado.objects.get(id=egresado_id)
+    egresado.eliminar_egresado()
+    messages.success(request, 'Egresado eliminado correctamente')
+    return redirect('egresados')

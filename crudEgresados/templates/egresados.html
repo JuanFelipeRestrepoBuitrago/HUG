@@ -91,12 +91,12 @@
                                 <td>{{ egresado.ciudad }}</td>
                                 <td>
                                     <div class="actions">
-                                        <form action="#" method="POST">
+                                        <form method="POST">
                                             {% csrf_token %}
                                             <button type="submit" formaction="#" class="bttn bttn-dark-primary">
                                                  <i class="fas fa-edit"></i>
                                              </button>
-                                            <button type="submit" formaction="#" class="bttn bttn-danger">
+                                            <button type="submit" formaction="{% url 'eliminar_egresado' egresado.id %}" class="bttn bttn-danger">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>

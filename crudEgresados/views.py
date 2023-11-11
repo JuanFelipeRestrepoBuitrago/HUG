@@ -1,7 +1,6 @@
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from .models import Egresado, Estudio
-from usuarios.models import CustomUser
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -57,7 +56,7 @@ def eliminar_egresado(request, egresado_id):
     """
     Esta función permite eliminar un egresado del sistema.
     @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
-    @param egresado_id: int, identificador del egresado a eliminar.
+    @param egresado_id: Int, identificador del egresado a eliminar.
     @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
     """
     if request.user.user_type == 'user':
@@ -79,7 +78,7 @@ def editar_egresado(request, egresado_id):
     """
     Esta función permite editar un egresado del sistema.
     @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
-    @param egresado_id: int, identificador del egresado a editar.
+    @param egresado_id: Int, identificador del egresado a editar.
     @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
     """
     if request.user.user_type == 'user':
@@ -153,9 +152,75 @@ def estudios(request):
 
         try:
             # Se crea el estudio
-            Estudio.crear_estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin, egresado=egresado)
+            Estudio.crear_estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio,
+                                  fecha_fin=fecha_fin, egresado=egresado)
             messages.success(request, 'Estudio creado correctamente')
         except IntegrityError as e:
             messages.error(request, e)
         finally:
             return redirect('estudios')
+
+
+@login_required
+def eliminar_estudio(request, estudio_id):
+    """
+    Esta función permite eliminar un estudio del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param estudio_id: Int, identificador del estudio a eliminar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('estudios')
+
+    # Se obtiene el estudio a eliminar
+    estudio = Estudio.objects.get(id=estudio_id)
+    # Se elimina el estudio
+    estudio.eliminar_estudio()
+
+    messages.success(request, 'Estudio eliminado correctamente')
+    return redirect('estudios')
+
+
+@login_required
+def editar_estudio(request, estudio_id):
+    """
+    Esta función permite editar un estudio del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param estudio_id: int, identificador del estudio a editar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('estudios')
+
+    # Se obtiene el estudio a editar
+    estudio = Estudio.objects.get(id=estudio_id)
+
+    # Se obtienen los datos del formulario
+    titulo = request.POST.get('titulo')
+    if titulo == '' or titulo == ' ':
+        titulo = None
+    institucion = request.POST.get('institucion')
+    if institucion == '' or institucion == ' ':
+        institucion = None
+    fecha_inicio = request.POST.get('fecha_inicio')
+    if fecha_inicio == '' or fecha_inicio == ' ':
+        fecha_inicio = None
+    fecha_fin = request.POST.get('fecha_fin')
+    if fecha_fin == '' or fecha_fin == ' ':
+        fecha_fin = None
+    egresado = request.POST.get('egresado')
+    egresado = Egresado.objects.get(id=egresado)
+
+    try:
+        # Se actualiza el estudio
+        estudio.actualizar_estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio,
+                                   fecha_fin=fecha_fin, egresado=egresado)
+        messages.success(request, 'Estudio actualizado correctamente')
+    except IntegrityError as e:
+        messages.error(request, e)
+    finally:
+        return redirect('estudios')

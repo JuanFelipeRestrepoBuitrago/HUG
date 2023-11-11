@@ -6,4 +6,6 @@ urlpatterns = [
     path('egresados/eliminar/<int:egresado_id>', eliminar_egresado, name='eliminar_egresado'),
     path('egresados/editar/<int:egresado_id>', editar_egresado, name='editar_egresado'),
     path('estudios', estudios, name='estudios'),
+    path('estudios/eliminar/<int:estudio_id>', eliminar_estudio, name='eliminar_estudio'),
+    path('estudios/editar/<int:estudio_id>', editar_estudio, name='editar_estudio'),
 ]

@@ -1,6 +1,6 @@
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from .models import Egresado
+from .models import Egresado, Estudio
 from usuarios.models import CustomUser
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -20,7 +20,6 @@ def egresados(request):
     if request.method == 'GET':
         # Se obtienen los egresados del sistema
         egresados_objects = Egresado.objects.all()[:1000]
-        print(egresados_objects[0].fecha_nacimiento)
         # Renderiza la página de egresados con los egresados obtenidos
         return render(request, 'egresados.html', {
             'egresados': egresados_objects
@@ -116,3 +115,47 @@ def editar_egresado(request, egresado_id):
         messages.error(request, e)
     finally:
         return redirect('egresados')
+
+
+@login_required
+def estudios(request):
+    """
+    Esta función permite listar los estudios en el sistema. También permite crear, actualizar y eliminar estudios con
+    formularios que redirigen a la página con la acción correspondiente.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    # Si el usuario es un usuario normal, se redirige a la página de inicio
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method == 'GET':
+        # Se obtienen los estudios del sistema
+        estudios_objects = Estudio.objects.all()[:1000]
+        # Renderiza la página de estudios con los estudios obtenidos
+        return render(request, 'egresados.html', {
+            'estudios': estudios_objects
+        })
+    elif request.method == 'POST':
+        # Se obtienen los datos del formulario
+        titulo = request.POST.get('titulo')
+        if titulo == '' or titulo == ' ':
+            titulo = None
+        institucion = request.POST.get('institucion')
+        if institucion == '' or institucion == ' ':
+            institucion = None
+        fecha_inicio = request.POST.get('fecha_inicio')
+        if fecha_inicio == '' or fecha_inicio == ' ':
+            fecha_inicio = None
+        fecha_fin = request.POST.get('fecha_fin')
+        if fecha_fin == '' or fecha_fin == ' ':
+            fecha_fin = None
+        egresado = request.POST.get('egresado')
+        egresado = Egresado.objects.get(id=egresado)
+
+        try:
+            # Se crea el estudio
+            Estudio.crear_estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin, egresado=egresado)
+            messages.success(request, 'Estudio creado correctamente')
+        except IntegrityError as e:
+            messages.error(request, e)
+        finally:
+            return redirect('estudios')

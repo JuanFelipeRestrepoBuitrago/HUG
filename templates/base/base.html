@@ -31,7 +31,7 @@
                     </a>
                     {% if user.user_type == 'admin' %}
                     	<a href="{% url 'egresados' %}" class="item">Egresados</a>
-                        <a href="#" class="item">Estudios</a>
+                        <a href="{% url 'estudios' %}" class="item">Estudios</a>
                         <a href="#" class="item">Experiencia</a>
                         <a href="#" class="item">Sectores</a>
                         <a href="#" class="item">Sectores-Egresados</a>
@@ -69,7 +69,7 @@
             </a>
             {% if user.user_type == 'admin' %}
                 <a href="{% url 'egresados' %}" class="item">Egresados</a>
-                <a href="#" class="item">Estudios</a>
+                <a href="{% url 'estudios' %}" class="item">Estudios</a>
                 <a href="#" class="item">Experiencia</a>
                 <a href="#" class="item">Sectores</a>
                 <a href="#" class="item">Sectores-Egresados</a>

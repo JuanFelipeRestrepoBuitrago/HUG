@@ -34,7 +34,7 @@
                     <input type="text" name="titulo" id="titulo" placeholder="Título">
                 </div>
                 <div class="form-item">
-                    <label for="institucion">Salario</label>
+                    <label for="institucion">Institución</label>
                     <input type="text" name="institucion" id="institucion" placeholder="Institución">
                 </div>
                 <div class="form-item">
@@ -103,9 +103,9 @@
                                             <button type="button" data-formaction="{% url 'editar_estudio' estudio.id %}"
                                                     data-estudio-titulo="{{ estudio.titulo }}"
                                                     data-estudio-institucion="{{ estudio.institucion }}"
-                                                    data-estudio-fecha_inicio="{{ estudio.fecha_inicio }}"
-                                                    data-estudio-fecha_fin="{{ estudio.fecha_fin }}"
-                                                    data-estudio-egresado_id="{{ estudio.egresado_id }}"
+                                                    data-estudio-fecha_inicio="{{ estudio.fecha_inicio|date:'Y-m-d' }}"
+                                                    data-estudio-fecha_fin="{{ estudio.fecha_fin|date:'Y-m-d' }}"
+                                                    data-estudio-egresado-id="{{ estudio.egresado_id }}"
                                                     class="bttn bttn-dark-primary">
                                                  <i class="fas fa-edit"></i>
                                              </button>
@@ -143,7 +143,7 @@
                 <input type="text" name="titulo" id="titulo" placeholder="Título">
             </div>
             <div class="form-item">
-                <label for="institucion">Salario</label>
+                <label for="institucion">Institución</label>
                 <input type="text" name="institucion" id="institucion" placeholder="Institución">
             </div>
             <div class="form-item">

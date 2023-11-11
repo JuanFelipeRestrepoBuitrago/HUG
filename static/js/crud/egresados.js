@@ -21,7 +21,7 @@ select.addEventListener('change', () => {
 });
 
 // Agregar valores al formulario de edición
-function addValues(modal, input, fechaNacimiento, nivelEducativo, salario, experienciaMeses, ciudad){
+function addValues(modal, fechaNacimiento, nivelEducativo, salario, experienciaMeses, ciudad){
     modal.querySelector('#fecha_nacimiento').value = fechaNacimiento;
     modal.querySelector('#nivel_educativo').value = nivelEducativo;
     modal.querySelector('#salario').value = salario.replace(',', '.');

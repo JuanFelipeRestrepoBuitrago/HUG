@@ -64,6 +64,49 @@ class Estudio(models.Model):
     fecha_fin = models.DateField(blank=True, null=True)
     egresado = models.ForeignKey(Egresado, models.DO_NOTHING, blank=True, null=True)
 
+    @staticmethod
+    def crear_estudio(titulo, institucion, fecha_inicio, fecha_fin, egresado):
+        """
+        Esta funcion permite crear un estudio en el sistema
+
+        @param titulo: titulo del estudio
+        @param institucion: institucion del estudio
+        @param fecha_inicio: fecha de inicio del estudio
+        @param fecha_fin: fecha de fin del estudio
+        @param egresado: egresado del estudio
+        @return: retorna el estudio creado
+        """
+        estudio = Estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin, egresado=egresado)
+        estudio.save()
+
+        return estudio
+
+    def actualizar_estudio(self, titulo=None, institucion=None, fecha_inicio=None, fecha_fin=None, egresado=None):
+        """
+        Esta funcion permite actualizar un estudio en el sistema
+
+        @param titulo: titulo del estudio
+        @param institucion: institucion del estudio
+        @param fecha_inicio: fecha de inicio del estudio
+        @param fecha_fin: fecha de fin del estudio
+        @param egresado: egresado del estudio
+        """
+        self.titulo = titulo
+        self.institucion = institucion
+        self.fecha_inicio = fecha_inicio
+        self.fecha_fin = fecha_fin
+        self.egresado = egresado
+
+        self.save()
+
+        return self
+
+    def eliminar_estudio(self):
+        """
+        Esta funcion permite eliminar un estudio en el sistema
+        """
+        self.delete()
+
     class Meta:
         managed = False
         db_table = 'estudio'

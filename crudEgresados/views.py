@@ -1,6 +1,6 @@
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from .models import Egresado, Estudio, Experiencia
+from .models import Egresado, Estudio, Experiencia, Sector
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -334,3 +334,89 @@ def editar_experiencia(request, experiencia_id):
         messages.error(request, e)
     finally:
         return redirect('experiencias')
+
+
+@login_required
+def sectores(request):
+    """
+    Esta función permite listar los sectores en el sistema. También permite crear, actualizar y eliminar sectores con
+    formularios que redirigen a la página con la acción correspondiente.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    # Si el usuario es un usuario normal, se redirige a la página de inicio
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method == 'GET':
+        # Se obtienen los sectores del sistema
+        sectores_objects = Sector.objects.all()[:1000]
+        # Renderiza la página de sectores con los sectores obtenidos
+        return render(request, 'sectores.html', {
+            'sectores': sectores_objects
+        })
+    elif request.method == 'POST':
+        # Se obtienen los datos del formulario
+        nombre = request.POST.get('nombre')
+        if nombre == '' or nombre == ' ':
+            nombre = None
+
+        try:
+            # Se crea el sector
+            Sector.crear_sector(nombre=nombre)
+            messages.success(request, 'Sector creado correctamente')
+        except IntegrityError as e:
+            messages.error(request, e)
+        finally:
+            return redirect('sectores')
+
+
+@login_required
+def eliminar_sector(request, sector_id):
+    """
+    Esta función permite eliminar un sector del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param sector_id: Int, identificador del sector a eliminar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('sectores')
+
+    # Se obtiene el sector a eliminar
+    sector = Sector.objects.get(id=sector_id)
+    # Se elimina el sector
+    sector.eliminar_sector()
+
+    messages.success(request, 'Sector eliminado correctamente')
+    return redirect('sectores')
+
+
+@login_required
+def editar_sector(request, sector_id):
+    """
+    Esta función permite editar un sector del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param sector_id: Int, identificador del sector a editar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('sectores')
+
+    # Se obtiene el sector a editar
+    sector = Sector.objects.get(id=sector_id)
+
+    # Se obtienen los datos del formulario
+    nombre = request.POST.get('nombre')
+    if nombre == '' or nombre == ' ':
+        nombre = None
+
+    try:
+        # Se actualiza el sector
+        sector.actualizar_sector(nombre=nombre)
+        messages.success(request, 'Sector actualizado correctamente')
+    except IntegrityError as e:
+        messages.error(request, e)
+    finally:
+        return redirect('sectores')

@@ -1,10 +1,6 @@
 // Agregar valores al formulario de edición
-function addValues(modal, titulo, institucion, fecha_inicio, fecha_fin, egresado){
-    modal.querySelector('#titulo').value = titulo;
-    modal.querySelector('#institucion').value = institucion;
-    modal.querySelector('#fecha_inicio').value = fecha_inicio;
-    modal.querySelector('#fecha_fin').value = fecha_fin;
-    modal.querySelector('#egresado').value = egresado;
+function addValues(modal, nombre){
+    modal.querySelector('#nombre').value = nombre;
 }
 
 // Obtener los botones de editar
@@ -23,14 +19,10 @@ editButtons.forEach(button => {
         form.action = formAction;
 
         // Obtener los valores de los inputs del formulario
-        const titulo = button.dataset.estudioTitulo;
-        const institucion = button.dataset.estudioInstitucion;
-        const fecha_inicio = button.dataset.estudioFechaInicio;
-        const fecha_fin = button.dataset.estudioFechaFin;
-        const egresado = button.dataset.estudioEgresadoId;
+        const nombre = button.dataset.sectorNombre;
 
         // Agregar los valores al formulario del modal
-        addValues(modal, titulo, institucion, fecha_inicio, fecha_fin, egresado);
+        addValues(modal, nombre);
     });
 });
 

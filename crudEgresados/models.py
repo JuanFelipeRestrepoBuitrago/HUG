@@ -170,6 +170,37 @@ class Experiencia(models.Model):
 class Sector(models.Model):
     nombre = models.CharField(max_length=350)
 
+    @staticmethod
+    def crear_sector(nombre):
+        """
+        Esta funcion permite crear un sector en el sistema
+
+        @param nombre: nombre del sector
+        @return: retorna el sector creado
+        """
+        sector = Sector(nombre=nombre)
+        sector.save()
+
+        return sector
+
+    def actualizar_sector(self, nombre=None):
+        """
+        Esta funcion permite actualizar un sector en el sistema
+
+        @param nombre: nombre del sector
+        """
+        self.nombre = nombre
+
+        self.save()
+
+        return self
+
+    def eliminar_sector(self):
+        """
+        Esta funcion permite eliminar un sector en el sistema
+        """
+        self.delete()
+
     class Meta:
         managed = False
         db_table = 'sector'

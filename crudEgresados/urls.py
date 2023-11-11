@@ -11,4 +11,7 @@ urlpatterns = [
     path('experiencias', experiencias, name='experiencias'),
     path('experiencias/eliminar/<int:experiencia_id>', eliminar_experiencia, name='eliminar_experiencia'),
     path('experiencias/editar/<int:experiencia_id>', editar_experiencia, name='editar_experiencia'),
+    path('sectores', sectores, name='sectores'),
+    path('sectores/eliminar/<int:sector_id>', eliminar_sector, name='eliminar_sector'),
+    path('sectores/editar/<int:sector_id>', editar_sector, name='editar_sector'),
 ]

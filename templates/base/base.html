@@ -33,7 +33,7 @@
                     	<a href="{% url 'egresados' %}" class="item">Egresados</a>
                         <a href="{% url 'estudios' %}" class="item">Estudios</a>
                         <a href="{% url 'experiencias' %}" class="item">Experiencia</a>
-                        <a href="#" class="item">Sectores</a>
+                        <a href="{% url 'sectores' %}" class="item">Sectores</a>
                         <a href="#" class="item">Sectores-Egresados</a>
                     {% else %}
                         <a href="{% url 'Dashboard' %}" class="item">Dashboard</a>
@@ -71,7 +71,7 @@
                 <a href="{% url 'egresados' %}" class="item">Egresados</a>
                 <a href="{% url 'estudios' %}" class="item">Estudios</a>
                 <a href="{% url 'experiencias' %}" class="item">Experiencia</a>
-                <a href="#" class="item">Sectores</a>
+                <a href="{% url 'sectores' %}" class="item">Sectores</a>
                 <a href="#" class="item">Sectores-Egresados</a>
             {% else %}
                 <a href="{% url 'Dashboard' %}" class="item">Dashboard</a>

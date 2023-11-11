@@ -1,0 +1,135 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Sectores{% endblock %}
+
+{% block css %}
+    {# Datatables #}
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="{% static 'css/crud/crud.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    <section class="main-container">
+        <h1 class="text-center title">Sectores</h1>
+        <div class="form-container">
+            <div class="messages-container">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="alert alert-dismissible alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
+                                <strong class="text-dark">{{ message }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert">
+
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <form action="{% url 'sectores' %}" method="post" class="custom-card creation-form">
+                {% csrf_token %}
+                <div class="form-item">
+                    <label for="nombre">Nombre Sector</label>
+                    <input type="text" name="nombre" id="nombre" placeholder="Nombre del Sector" required>
+                </div>
+                <div class="form-item buttons-container">
+                    <button type="reset" class="bttn bttn-primary">Limpiar</button>
+                    <button type="submit" class="bttn bttn-warning">Crear</button>
+                </div>
+            </form>
+        </div>
+        <div class="table-container">
+            <div class="card">
+                <table id="rows" class="table table-striped table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Sector</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sector in sectores %}
+                            <tr>
+                                {% if sector.nombre %}
+                                	<td>{{ sector.nombre }}</td>
+                                {% else %}
+                                    <td>Ninguno</td>
+                                {% endif %}
+                                <td>
+                                    <div class="actions">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <button type="button" data-formaction="{% url 'editar_sector' sector.id %}"
+                                                    data-sector-nombre="{{ sector.nombre }}"
+                                                    class="bttn bttn-dark-primary">
+                                                 <i class="fas fa-edit"></i>
+                                             </button>
+                                            <button type="submit" formaction="{% url 'eliminar_sector' sector.id %}" class="bttn bttn-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nombre del Sector</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <dialog id="modal">
+        <h1 class="text-center title">Editar Egresado</h1>
+        <form method="post" class="edition-form">
+            {% csrf_token %}
+            <div class="form-item">
+                <label for="nombre">Nombre Sector</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre del Sector" required>
+            </div>
+            <div class="form-item buttons-container">
+                <button type="reset" class="bttn bttn-primary">Limpiar</button>
+                <button type="submit" class="bttn bttn-warning">Guardar</button>
+            </div>
+        </form>
+        <button type="button" class="bttn bttn-close" data-modal-close>
+            <i class="fas fa-times"></i>
+        </button>
+    </dialog>
+{% endblock %}
+
+{% block js %}
+    {#  JQuery  #}
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    {#  Datatables  #}
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#rows').DataTable({
+                language: {
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "Ningún usuario encontrado",
+                    info: "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+                    infoEmpty: "Ningún usuario encontrado",
+                    infoFiltered: "(filtrados desde _MAX_ registros totales)",
+                    search: "Buscar:",
+                    loadingRecords: "Cargando...",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior"
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="{% static 'js/crud/sectores.js' %}"></script>
+{% endblock %}

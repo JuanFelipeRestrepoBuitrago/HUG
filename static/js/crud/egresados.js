@@ -2,7 +2,7 @@
 function addValues(modal, input, fechaNacimiento, nivelEducativo, salario, experienciaMeses, ciudad){
     modal.querySelector('#fecha_nacimiento').value = fechaNacimiento;
     modal.querySelector('#nivel_educativo').value = nivelEducativo;
-    modal.querySelector('#salario').value = salario;
+    modal.querySelector('#salario').value = salario.replace(',', '.');
     modal.querySelector('#experiencia_meses').value = experienciaMeses;
     modal.querySelector('#ciudad').value = ciudad;
 }
@@ -28,8 +28,6 @@ editButtons.forEach(button => {
         const salario = button.dataset.egresadoSalario;
         const experienciaMeses = button.dataset.egresadoExperienciaMeses;
         const ciudad = button.dataset.egresadoCiudad;
-
-        console.log(fechaNacimiento);
 
         // Agregar los valores al formulario del modal
         addValues(modal, form, fechaNacimiento, nivelEducativo, salario, experienciaMeses, ciudad);

@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-item">
                     <label for="salario">Salario</label>
-                    <input type="number" name="salario" id="salario" placeholder="Salario">
+                    <input type="number" name="salario" id="salario" placeholder="Salario" step="0.001">
                 </div>
                 <div class="form-item">
                     <label for="experiencia_meses">Experiencia en Meses</label>
@@ -84,11 +84,31 @@
                     <tbody>
                         {% for egresado in egresados %}
                             <tr>
-                                <td>{{ egresado.fecha_nacimiento }}</td>
-                                <td>{{ egresado.nivel_educativo }}</td>
-                                <td>{{ egresado.salario }}</td>
-                                <td>{{ egresado.experiencia_meses }}</td>
-                                <td>{{ egresado.ciudad }}</td>
+                                {% if egresado.fecha_nacimiento %}
+                                	<td>{{ egresado.fecha_nacimiento }}</td>
+                                {% else %}
+                                    <td>S.F.</td>
+                                {% endif %}
+                                {% if egresado.nivel_educativo %}
+                                    <td>{{ egresado.nivel_educativo }}</td>
+                                {% else %}
+                                    <td>Ninguno</td>
+                                {% endif %}
+                                {% if egresado.salario %}
+                                    <td>{{ egresado.salario }}</td>
+                                {% else %}
+                                    <td>Ninguno</td>
+                                {% endif %}
+                                {% if egresado.experiencia_meses %}
+                                    <td>{{ egresado.experiencia_meses }}</td>
+                                {% else %}
+                                    <td>Ninguno</td>
+                                {% endif %}
+                                {% if egresado.ciudad %}
+                                    <td>{{ egresado.ciudad }}</td>
+                                {% else %}
+                                    <td>Ninguno</td>
+                                {% endif %}
                                 <td>
                                     <div class="actions">
                                         <form method="POST">
@@ -154,7 +174,7 @@
             </div>
             <div class="form-item">
                 <label for="salario">Salario</label>
-                <input type="number" name="salario" id="salario" placeholder="Salario">
+                <input type="number" name="salario" id="salario" placeholder="Salario" step="0.001">
             </div>
             <div class="form-item">
                 <label for="experiencia_meses">Experiencia en Meses</label>

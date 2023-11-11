@@ -130,7 +130,7 @@ def estudios(request):
         # Se obtienen los estudios del sistema
         estudios_objects = Estudio.objects.all()[:1000]
         # Renderiza la página de estudios con los estudios obtenidos
-        return render(request, 'egresados.html', {
+        return render(request, 'estudios.html', {
             'estudios': estudios_objects
         })
     elif request.method == 'POST':

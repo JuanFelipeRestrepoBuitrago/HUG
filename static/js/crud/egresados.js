@@ -52,7 +52,7 @@ editButtons.forEach(button => {
         const ciudad = button.dataset.egresadoCiudad;
 
         // Agregar los valores al formulario del modal
-        addValues(modal, form, fechaNacimiento, nivelEducativo, salario, experienciaMeses, ciudad);
+        addValues(modal, fechaNacimiento, nivelEducativo, salario, experienciaMeses, ciudad);
     });
 });
 

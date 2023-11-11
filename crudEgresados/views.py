@@ -43,7 +43,8 @@ def egresados(request):
 
         try:
             # Se crea el egresado
-            Egresado.crear_egresado(fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad)
+            egresado = Egresado()
+            egresado.crear_egresado(fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad)
             messages.success(request, 'Egresado creado correctamente')
         except IntegrityError as e:
             messages.error(request, e)
@@ -151,8 +152,8 @@ def estudios(request):
         egresado = Egresado.objects.get(id=egresado)
 
         try:
-            # Se crea el estudio
-            Estudio.crear_estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio,
+            estudio = Estudio()
+            estudio.crear_estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio,
                                   fecha_fin=fecha_fin, egresado=egresado)
             messages.success(request, 'Estudio creado correctamente')
         except IntegrityError as e:
@@ -262,7 +263,8 @@ def experiencias(request):
 
         try:
             # Se crea la experiencia
-            Experiencia.crear_experiencia(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio,
+            experiencia = Experiencia()
+            experiencia.crear_experiencia(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio,
                                           fecha_fin=fecha_fin, egresado=egresado)
             messages.success(request, 'Experiencia creada correctamente')
         except IntegrityError as e:
@@ -361,7 +363,8 @@ def sectores(request):
 
         try:
             # Se crea el sector
-            Sector.crear_sector(nombre=nombre)
+            sector = Sector()
+            sector.crear_sector(nombre=nombre)
             messages.success(request, 'Sector creado correctamente')
         except IntegrityError as e:
             messages.error(request, e)
@@ -448,7 +451,8 @@ def sectores_egresados(request):
 
         try:
             # Se crea el sector de egresado
-            SectoresEgresados.crear_sectores_egresados(sector=sector, egresado=egresado)
+            sector_egresado = SectoresEgresados()
+            sector_egresado.crear_sectores_egresados(sector=sector, egresado=egresado)
             messages.success(request, 'Sector de egresado creado correctamente')
         except IntegrityError as e:
             messages.error(request, e)

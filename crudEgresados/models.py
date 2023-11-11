@@ -8,8 +8,7 @@ class Egresado(models.Model):
     experiencia_meses = models.IntegerField(blank=True, null=True)
     ciudad = models.CharField(max_length=250, blank=True, null=True)
 
-    @staticmethod
-    def crear_egresado(fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad):
+    def crear_egresado(self, fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad):
         """
         Esta funcion permite crear un egresado en el sistema
 
@@ -20,11 +19,15 @@ class Egresado(models.Model):
         @param ciudad: ciudad del egresado
         @return: retorna el egresado creado
         """
-        egresado = Egresado(fecha_nacimiento=fecha_nacimiento, nivel_educativo=nivel_educativo, salario=salario,
-                            experiencia_meses=experiencia_meses, ciudad=ciudad)
-        egresado.save()
+        self.fecha_nacimiento = fecha_nacimiento
+        self.nivel_educativo = nivel_educativo
+        self.salario = salario
+        self.experiencia_meses = experiencia_meses
+        self.ciudad = ciudad
 
-        return egresado
+        self.save()
+
+        return self
 
     def actualizar_egresado(self, fecha_nacimiento=None, nivel_educativo=None, salario=None, experiencia_meses=None, ciudad=None):
         """
@@ -64,8 +67,7 @@ class Estudio(models.Model):
     fecha_fin = models.DateField(blank=True, null=True)
     egresado = models.ForeignKey(Egresado, models.DO_NOTHING)
 
-    @staticmethod
-    def crear_estudio(titulo, institucion, fecha_inicio, fecha_fin, egresado):
+    def crear_estudio(self, titulo, institucion, fecha_inicio, fecha_fin, egresado):
         """
         Esta funcion permite crear un estudio en el sistema
 
@@ -76,10 +78,15 @@ class Estudio(models.Model):
         @param egresado: egresado del estudio
         @return: retorna el estudio creado
         """
-        estudio = Estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin, egresado=egresado)
-        estudio.save()
+        self.titulo = titulo
+        self.institucion = institucion
+        self.fecha_inicio = fecha_inicio
+        self.fecha_fin = fecha_fin
+        self.egresado = egresado
 
-        return estudio
+        self.save()
+
+        return self
 
     def actualizar_estudio(self, egresado, titulo=None, institucion=None, fecha_inicio=None, fecha_fin=None):
         """
@@ -119,8 +126,7 @@ class Experiencia(models.Model):
     fecha_fin = models.DateField(blank=True, null=True)
     egresado = models.ForeignKey(Egresado, models.DO_NOTHING)
 
-    @staticmethod
-    def crear_experiencia(empresa, cargo, fecha_inicio, fecha_fin, egresado):
+    def crear_experiencia(self, empresa, cargo, fecha_inicio, fecha_fin, egresado):
         """
         Esta funcion permite crear una experiencia en el sistema
 
@@ -131,10 +137,15 @@ class Experiencia(models.Model):
         @param egresado: egresado de la experiencia
         @return: retorna la experiencia creada
         """
-        experiencia = Experiencia(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin, egresado=egresado)
-        experiencia.save()
+        self.empresa = empresa
+        self.cargo = cargo
+        self.fecha_inicio = fecha_inicio
+        self.fecha_fin = fecha_fin
+        self.egresado = egresado
 
-        return experiencia
+        self.save()
+
+        return self
 
     def actualizar_experiencia(self, egresado, empresa=None, cargo=None, fecha_inicio=None, fecha_fin=None):
         """
@@ -170,18 +181,18 @@ class Experiencia(models.Model):
 class Sector(models.Model):
     nombre = models.CharField(max_length=350)
 
-    @staticmethod
-    def crear_sector(nombre):
+    def crear_sector(self, nombre):
         """
         Esta funcion permite crear un sector en el sistema
 
         @param nombre: nombre del sector
         @return: retorna el sector creado
         """
-        sector = Sector(nombre=nombre)
-        sector.save()
+        self.nombre = nombre
 
-        return sector
+        self.save()
+
+        return self
 
     def actualizar_sector(self, nombre=None):
         """
@@ -210,8 +221,7 @@ class SectoresEgresados(models.Model):
     sector = models.ForeignKey(Sector, models.DO_NOTHING)
     egresado = models.ForeignKey(Egresado, models.DO_NOTHING)
 
-    @staticmethod
-    def crear_sectores_egresados(sector, egresado):
+    def crear_sectores_egresados(self, sector, egresado):
         """
         Esta funcion permite crear un sector de egresado en el sistema
 
@@ -219,10 +229,12 @@ class SectoresEgresados(models.Model):
         @param egresado: egresado del sector
         @return: retorna el sector de egresado creado
         """
-        sector_egresado = SectoresEgresados(sector=sector, egresado=egresado)
-        sector_egresado.save()
+        self.sector = sector
+        self.egresado = egresado
 
-        return sector_egresado
+        self.save()
+
+        return self
 
     def actualizar_sectores_egresados(self, sector, egresado):
         """

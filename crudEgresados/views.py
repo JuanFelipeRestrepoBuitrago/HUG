@@ -1,6 +1,6 @@
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from .models import Egresado, Estudio, Experiencia, Sector
+from .models import Egresado, Estudio, Experiencia, Sector, SectoresEgresados
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -420,3 +420,91 @@ def editar_sector(request, sector_id):
         messages.error(request, e)
     finally:
         return redirect('sectores')
+
+
+@login_required
+def sectores_egresados(request):
+    """
+    Esta función permite listar los sectores de egresados en el sistema. También permite crear, actualizar y eliminar sectores de egresados con
+    formularios que redirigen a la página con la acción correspondiente.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    # Si el usuario es un usuario normal, se redirige a la página de inicio
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method == 'GET':
+        # Se obtienen los sectores de egresados del sistema
+        sectores_egresados_objects = SectoresEgresados.objects.all()[:1000]
+        # Renderiza la página de sectores de egresados con los sectores de egresados obtenidos
+        return render(request, 'sectores_egresados.html', {
+            'sectores_egresados': sectores_egresados_objects
+        })
+    elif request.method == 'POST':
+        # Se obtienen los datos del formulario
+        sector = request.POST.get('sector')
+        sector = Sector.objects.get(id=sector)
+        egresado = request.POST.get('egresado')
+        egresado = Egresado.objects.get(id=egresado)
+
+        try:
+            # Se crea el sector de egresado
+            SectoresEgresados.crear_sectores_egresados(sector=sector, egresado=egresado)
+            messages.success(request, 'Sector de egresado creado correctamente')
+        except IntegrityError as e:
+            messages.error(request, e)
+        finally:
+            return redirect('sectores_egresados')
+
+
+@login_required
+def eliminar_sector_egresado(request, sector_egresado_id):
+    """
+    Esta función permite eliminar un sector de egresado del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param sector_egresado_id: Int, identificador del sector de egresado a eliminar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('sectores_egresados')
+
+    # Se obtiene el sector de egresado a eliminar
+    sector_egresado = SectoresEgresados.objects.get(id=sector_egresado_id)
+    # Se elimina el sector de egresado
+    sector_egresado.eliminar_sectores_egresados()
+
+    messages.success(request, 'Sector de egresado eliminado correctamente')
+    return redirect('sectores_egresados')
+
+
+@login_required
+def editar_sector_egresado(request, sector_egresado_id):
+    """
+    Esta función permite editar un sector de egresado del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param sector_egresado_id: Int, identificador del sector de egresado a editar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('sectores_egresados')
+
+    # Se obtiene el sector de egresado a editar
+    sector_egresado = SectoresEgresados.objects.get(id=sector_egresado_id)
+
+    # Se obtienen los datos del formulario
+    sector = request.POST.get('sector')
+    sector = Sector.objects.get(id=sector)
+    egresado = request.POST.get('egresado')
+    egresado = Egresado.objects.get(id=egresado)
+
+    try:
+        # Se actualiza el sector de egresado
+        sector_egresado.actualizar_sectores_egresados(sector=sector, egresado=egresado)
+        messages.success(request, 'Sector de egresado actualizado correctamente')
+    except IntegrityError as e:
+        messages.error(request, e)
+    finally:
+        return redirect('sectores_egresados')

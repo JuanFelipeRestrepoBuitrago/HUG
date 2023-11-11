@@ -14,4 +14,7 @@ urlpatterns = [
     path('sectores', sectores, name='sectores'),
     path('sectores/eliminar/<int:sector_id>', eliminar_sector, name='eliminar_sector'),
     path('sectores/editar/<int:sector_id>', editar_sector, name='editar_sector'),
+    path('sectores_egresados', sectores_egresados, name='sectores_egresados'),
+    path('sectores_egresados/eliminar/<int:sector_egresado_id>', eliminar_sector_egresado, name='eliminar_sector_egresado'),
+    path('sectores_egresados/editar/<int:sector_egresado_id>', editar_sector_egresado, name='editar_sector_egresado'),
 ]

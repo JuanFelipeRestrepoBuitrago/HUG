@@ -62,7 +62,7 @@ class Estudio(models.Model):
     institucion = models.TextField(blank=True, null=True)
     fecha_inicio = models.DateField(blank=True, null=True)
     fecha_fin = models.DateField(blank=True, null=True)
-    egresado = models.ForeignKey(Egresado, models.DO_NOTHING, blank=True, null=True)
+    egresado = models.ForeignKey(Egresado, models.DO_NOTHING)
 
     @staticmethod
     def crear_estudio(titulo, institucion, fecha_inicio, fecha_fin, egresado):
@@ -81,7 +81,7 @@ class Estudio(models.Model):
 
         return estudio
 
-    def actualizar_estudio(self, titulo=None, institucion=None, fecha_inicio=None, fecha_fin=None, egresado=None):
+    def actualizar_estudio(self, egresado, titulo=None, institucion=None, fecha_inicio=None, fecha_fin=None):
         """
         Esta funcion permite actualizar un estudio en el sistema
 
@@ -117,7 +117,7 @@ class Experiencia(models.Model):
     cargo = models.TextField(blank=True, null=True)
     fecha_inicio = models.DateField(blank=True, null=True)
     fecha_fin = models.DateField(blank=True, null=True)
-    egresado = models.ForeignKey(Egresado, models.DO_NOTHING, blank=True, null=True)
+    egresado = models.ForeignKey(Egresado, models.DO_NOTHING)
 
     @staticmethod
     def crear_experiencia(empresa, cargo, fecha_inicio, fecha_fin, egresado):
@@ -136,7 +136,7 @@ class Experiencia(models.Model):
 
         return experiencia
 
-    def actualizar_experiencia(self, empresa=None, cargo=None, fecha_inicio=None, fecha_fin=None, egresado=None):
+    def actualizar_experiencia(self, egresado, empresa=None, cargo=None, fecha_inicio=None, fecha_fin=None):
         """
         Esta funcion permite actualizar una experiencia en el sistema
 
@@ -207,8 +207,42 @@ class Sector(models.Model):
 
 
 class SectoresEgresados(models.Model):
-    sector = models.ForeignKey(Sector, models.DO_NOTHING, blank=True, null=True)
-    egresado = models.ForeignKey(Egresado, models.DO_NOTHING, blank=True, null=True)
+    sector = models.ForeignKey(Sector, models.DO_NOTHING)
+    egresado = models.ForeignKey(Egresado, models.DO_NOTHING)
+
+    @staticmethod
+    def crear_sectores_egresados(sector, egresado):
+        """
+        Esta funcion permite crear un sector de egresado en el sistema
+
+        @param sector: sector del egresado
+        @param egresado: egresado del sector
+        @return: retorna el sector de egresado creado
+        """
+        sector_egresado = SectoresEgresados(sector=sector, egresado=egresado)
+        sector_egresado.save()
+
+        return sector_egresado
+
+    def actualizar_sectores_egresados(self, sector, egresado):
+        """
+        Esta funcion permite actualizar un sector de egresado en el sistema
+
+        @param sector: sector del egresado
+        @param egresado: egresado del sector
+        """
+        self.sector = sector
+        self.egresado = egresado
+
+        self.save()
+
+        return self
+
+    def eliminar_sectores_egresados(self):
+        """
+        Esta funcion permite eliminar un sector de egresado en el sistema
+        """
+        self.delete()
 
     class Meta:
         managed = False

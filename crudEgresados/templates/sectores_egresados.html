@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}Experiencias{% endblock %}
+{% block title %}Sectores-Egresados{% endblock %}
 
 {% block css %}
     {# Datatables #}
@@ -11,7 +11,7 @@
 
 {% block content %}
     <section class="main-container">
-        <h1 class="text-center title">Experiencias</h1>
+        <h1 class="text-center title">Sectores-Egresados</h1>
         <div class="form-container">
             <div class="messages-container">
                 {% if messages %}
@@ -27,23 +27,11 @@
                     </ul>
                 {% endif %}
             </div>
-            <form action="{% url 'experiencias' %}" method="post" class="custom-card creation-form">
+            <form action="{% url 'sectores_egresados' %}" method="post" class="custom-card creation-form">
                 {% csrf_token %}
                 <div class="form-item">
-                    <label for="empresa">Empresa</label>
-                    <input type="text" name="empresa" id="empresa" placeholder="Empresa">
-                </div>
-                <div class="form-item">
-                    <label for="cargo">Cargo</label>
-                    <input type="text" name="cargo" id="cargo" placeholder="Cargo">
-                </div>
-                <div class="form-item">
-                    <label for="fecha_inicio">Fecha Inicio</label>
-                    <input type="date" name="fecha_inicio" id="fecha_inicio" placeholder="Fecha de Inicio">
-                </div>
-                <div class="form-item">
-                    <label for="fecha_fin">Fecha Fin</label>
-                    <input type="date" name="fecha_fin" id="fecha_fin" placeholder="Fecha de Fin">
+                    <label for="sector">Sector Id</label>
+                    <input type="number" name="sector" id="sector" placeholder="Id del Sector" required>
                 </div>
                 <div class="form-item">
                     <label for="egresado">Egresado Id</label>
@@ -60,39 +48,21 @@
                 <table id="rows" class="table table-striped table-hover" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Empresa</th>
-                            <th>Cargo</th>
-                            <th>Fecha de Inicio</th>
-                            <th>Fecha de Fin</th>
-                            <th>Egresado Id</th>
+                            <th>Id del Sector</th>
+                            <th>Id del Egresado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for experiencia in experiencias %}
+                        {% for sector_egresado in sectores_egresados %}
                             <tr>
-                                {% if experiencia.empresa %}
-                                	<td>{{ experiencia.empresa }}</td>
+                                {% if sector_egresado.sector_id %}
+                                	<td>{{ sector_egresado.sector_id }}</td>
                                 {% else %}
                                     <td>Ninguno</td>
                                 {% endif %}
-                                {% if experiencia.cargo %}
-                                    <td>{{ experiencia.cargo }}</td>
-                                {% else %}
-                                    <td>Ninguno</td>
-                                {% endif %}
-                                {% if experiencia.fecha_inicio %}
-                                    <td>{{ experiencia.fecha_inicio }}</td>
-                                {% else %}
-                                    <td>S.F.</td>
-                                {% endif %}
-                                {% if experiencia.fecha_fin %}
-                                    <td>{{ experiencia.fecha_fin }}</td>
-                                {% else %}
-                                    <td>S.F.</td>
-                                {% endif %}
-                                {% if experiencia.egresado_id %}
-                                    <td>{{ experiencia.egresado_id }}</td>
+                                {% if sector_egresado.egresado_id %}
+                                	<td>{{ sector_egresado.egresado_id }}</td>
                                 {% else %}
                                     <td>Ninguno</td>
                                 {% endif %}
@@ -100,16 +70,13 @@
                                     <div class="actions">
                                         <form method="POST">
                                             {% csrf_token %}
-                                            <button type="button" data-formaction="{% url 'editar_experiencia' experiencia.id %}"
-                                                    data-experiencia-empresa="{{ experiencia.empresa }}"
-                                                    data-experiencia-cargo="{{ experiencia.cargo }}"
-                                                    data-experiencia-fecha-inicio="{{ experiencia.fecha_inicio|date:'Y-m-d' }}"
-                                                    data-experiencia-fecha-fin="{{ experiencia.fecha_fin|date:'Y-m-d' }}"
-                                                    data-experiencia-egresado-id="{{ experiencia.egresado_id }}"
+                                            <button type="button" data-formaction="{% url 'editar_sector_egresado' sector_egresado.id %}"
+                                                    data-sector-egresado-sector-id="{{ sector_egresado.sector_id }}"
+                                                    data-sector-egresado-egresado-id="{{ sector_egresado.egresado_id }}"
                                                     class="bttn bttn-dark-primary">
                                                  <i class="fas fa-edit"></i>
                                              </button>
-                                            <button type="submit" formaction="{% url 'eliminar_experiencia' experiencia.id %}" class="bttn bttn-danger">
+                                            <button type="submit" formaction="{% url 'eliminar_sector_egresado' sector_egresado.id %}" class="bttn bttn-danger">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
@@ -121,11 +88,8 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Empresa</th>
-                            <th>Cargo</th>
-                            <th>Fecha de Inicio</th>
-                            <th>Fecha de Fin</th>
-                            <th>Egresado Id</th>
+                            <th>Id del Sector</th>
+                            <th>Id del Egresado</th>
                             <th>Acciones</th>
                         </tr>
                     </tfoot>
@@ -135,24 +99,12 @@
     </section>
 
     <dialog id="modal">
-        <h1 class="text-center title">Editar Experiencia</h1>
+        <h1 class="text-center title">Editar Sectores-Egresados</h1>
         <form method="post" class="edition-form">
             {% csrf_token %}
             <div class="form-item">
-                <label for="empresa">Empresa</label>
-                <input type="text" name="empresa" id="empresa" placeholder="Empresa">
-            </div>
-            <div class="form-item">
-                <label for="cargo">Cargo</label>
-                <input type="text" name="cargo" id="cargo" placeholder="Cargo">
-            </div>
-            <div class="form-item">
-                <label for="fecha_inicio">Fecha Inicio</label>
-                <input type="date" name="fecha_inicio" id="fecha_inicio" placeholder="Fecha de Inicio">
-            </div>
-            <div class="form-item">
-                <label for="fecha_fin">Fecha Fin</label>
-                <input type="date" name="fecha_fin" id="fecha_fin" placeholder="Fecha de Fin">
+                <label for="sector">Sector Id</label>
+                <input type="number" name="sector" id="sector" placeholder="Id del Sector" required>
             </div>
             <div class="form-item">
                 <label for="egresado">Egresado Id</label>
@@ -195,5 +147,5 @@
             });
         });
     </script>
-    <script src="{% static 'js/crud/experiencias.js' %}"></script>
+    <script src="{% static 'js/crud/sectores_egresados.js' %}"></script>
 {% endblock %}

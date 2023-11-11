@@ -44,7 +44,8 @@ def egresados(request):
         try:
             # Se crea el egresado
             egresado = Egresado()
-            egresado.crear_egresado(fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad)
+            egresado.crear(fecha_nacimiento=fecha_nacimiento, nivel_educativo=nivel_educativo, salario=salario,
+                           experiencia_meses=experiencia_meses, ciudad=ciudad)
             messages.success(request, 'Egresado creado correctamente')
         except IntegrityError as e:
             messages.error(request, e)
@@ -68,7 +69,7 @@ def eliminar_egresado(request, egresado_id):
     # Se obtiene el egresado a eliminar
     egresado = Egresado.objects.get(id=egresado_id)
     # Se elimina el egresado
-    egresado.eliminar_egresado()
+    egresado.eliminar()
 
     messages.success(request, 'Egresado eliminado correctamente')
     return redirect('egresados')
@@ -109,7 +110,8 @@ def editar_egresado(request, egresado_id):
 
     try:
         # Se actualiza el egresado
-        egresado.actualizar_egresado(fecha_nacimiento, nivel_educativo, salario, experiencia_meses, ciudad)
+        egresado.actualizar(fecha_nacimiento=fecha_nacimiento, nivel_educativo=nivel_educativo, salario=salario,
+                            experiencia_meses=experiencia_meses, ciudad=ciudad)
         messages.success(request, 'Egresado actualizado correctamente')
     except IntegrityError as e:
         messages.error(request, e)
@@ -153,8 +155,8 @@ def estudios(request):
 
         try:
             estudio = Estudio()
-            estudio.crear_estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio,
-                                  fecha_fin=fecha_fin, egresado=egresado)
+            estudio.crear(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio,
+                          fecha_fin=fecha_fin, egresado=egresado)
             messages.success(request, 'Estudio creado correctamente')
         except IntegrityError as e:
             messages.error(request, e)
@@ -178,7 +180,7 @@ def eliminar_estudio(request, estudio_id):
     # Se obtiene el estudio a eliminar
     estudio = Estudio.objects.get(id=estudio_id)
     # Se elimina el estudio
-    estudio.eliminar_estudio()
+    estudio.eliminar()
 
     messages.success(request, 'Estudio eliminado correctamente')
     return redirect('estudios')
@@ -218,8 +220,8 @@ def editar_estudio(request, estudio_id):
 
     try:
         # Se actualiza el estudio
-        estudio.actualizar_estudio(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio,
-                                   fecha_fin=fecha_fin, egresado=egresado)
+        estudio.actualizar(titulo=titulo, institucion=institucion, fecha_inicio=fecha_inicio,
+                           fecha_fin=fecha_fin, egresado=egresado)
         messages.success(request, 'Estudio actualizado correctamente')
     except IntegrityError as e:
         messages.error(request, e)
@@ -264,8 +266,8 @@ def experiencias(request):
         try:
             # Se crea la experiencia
             experiencia = Experiencia()
-            experiencia.crear_experiencia(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio,
-                                          fecha_fin=fecha_fin, egresado=egresado)
+            experiencia.crear(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio,
+                              fecha_fin=fecha_fin, egresado=egresado)
             messages.success(request, 'Experiencia creada correctamente')
         except IntegrityError as e:
             messages.error(request, e)
@@ -289,7 +291,7 @@ def eliminar_experiencia(request, experiencia_id):
     # Se obtiene la experiencia a eliminar
     experiencia = Experiencia.objects.get(id=experiencia_id)
     # Se elimina la experiencia
-    experiencia.eliminar_experiencia()
+    experiencia.eliminar()
 
     messages.success(request, 'Experiencia eliminada correctamente')
     return redirect('experiencias')
@@ -329,8 +331,8 @@ def editar_experiencia(request, experiencia_id):
 
     try:
         # Se actualiza la experiencia
-        experiencia.actualizar_experiencia(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio,
-                                           fecha_fin=fecha_fin, egresado=egresado)
+        experiencia.actualizar(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio,
+                               fecha_fin=fecha_fin, egresado=egresado)
         messages.success(request, 'Experiencia actualizada correctamente')
     except IntegrityError as e:
         messages.error(request, e)
@@ -364,7 +366,7 @@ def sectores(request):
         try:
             # Se crea el sector
             sector = Sector()
-            sector.crear_sector(nombre=nombre)
+            sector.crear(nombre=nombre)
             messages.success(request, 'Sector creado correctamente')
         except IntegrityError as e:
             messages.error(request, e)
@@ -388,7 +390,7 @@ def eliminar_sector(request, sector_id):
     # Se obtiene el sector a eliminar
     sector = Sector.objects.get(id=sector_id)
     # Se elimina el sector
-    sector.eliminar_sector()
+    sector.eliminar()
 
     messages.success(request, 'Sector eliminado correctamente')
     return redirect('sectores')
@@ -417,7 +419,7 @@ def editar_sector(request, sector_id):
 
     try:
         # Se actualiza el sector
-        sector.actualizar_sector(nombre=nombre)
+        sector.actualizar(nombre=nombre)
         messages.success(request, 'Sector actualizado correctamente')
     except IntegrityError as e:
         messages.error(request, e)
@@ -428,9 +430,9 @@ def editar_sector(request, sector_id):
 @login_required
 def sectores_egresados(request):
     """
-    Esta función permite listar los sectores de egresados en el sistema. También permite crear, actualizar y eliminar sectores de egresados con
-    formularios que redirigen a la página con la acción correspondiente.
-    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    Esta función permite listar los sectores de egresados en el sistema. También permite crear, actualizar y eliminar
+    sectores de egresados con formularios que redirigen a la página con la acción correspondiente. @return:
+    HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
     """
     # Si el usuario es un usuario normal, se redirige a la página de inicio
     if request.user.user_type == 'user':
@@ -452,7 +454,7 @@ def sectores_egresados(request):
         try:
             # Se crea el sector de egresado
             sector_egresado = SectoresEgresados()
-            sector_egresado.crear_sectores_egresados(sector=sector, egresado=egresado)
+            sector_egresado.crear(sector=sector, egresado=egresado)
             messages.success(request, 'Sector de egresado creado correctamente')
         except IntegrityError as e:
             messages.error(request, e)
@@ -476,7 +478,7 @@ def eliminar_sector_egresado(request, sector_egresado_id):
     # Se obtiene el sector de egresado a eliminar
     sector_egresado = SectoresEgresados.objects.get(id=sector_egresado_id)
     # Se elimina el sector de egresado
-    sector_egresado.eliminar_sectores_egresados()
+    sector_egresado.eliminar()
 
     messages.success(request, 'Sector de egresado eliminado correctamente')
     return redirect('sectores_egresados')
@@ -506,7 +508,7 @@ def editar_sector_egresado(request, sector_egresado_id):
 
     try:
         # Se actualiza el sector de egresado
-        sector_egresado.actualizar_sectores_egresados(sector=sector, egresado=egresado)
+        sector_egresado.actualizar(sector=sector, egresado=egresado)
         messages.success(request, 'Sector de egresado actualizado correctamente')
     except IntegrityError as e:
         messages.error(request, e)

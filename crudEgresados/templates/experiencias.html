@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}Estudios{% endblock %}
+{% block title %}Experiencias{% endblock %}
 
 {% block css %}
     {# Datatables #}
@@ -11,7 +11,7 @@
 
 {% block content %}
     <section class="main-container">
-        <h1 class="text-center title">Estudios</h1>
+        <h1 class="text-center title">Experiencias</h1>
         <div class="form-container">
             <div class="messages-container">
                 {% if messages %}
@@ -27,15 +27,15 @@
                     </ul>
                 {% endif %}
             </div>
-            <form action="{% url 'estudios' %}" method="post" class="custom-card creation-form">
+            <form action="{% url 'experiencias' %}" method="post" class="custom-card creation-form">
                 {% csrf_token %}
                 <div class="form-item">
-                    <label for="titulo">Título</label>
-                    <input type="text" name="titulo" id="titulo" placeholder="Título">
+                    <label for="empresa">Empresa</label>
+                    <input type="text" name="empresa" id="empresa" placeholder="Empresa">
                 </div>
                 <div class="form-item">
-                    <label for="institucion">Institución</label>
-                    <input type="text" name="institucion" id="institucion" placeholder="Institución">
+                    <label for="cargo">Cargo</label>
+                    <input type="text" name="cargo" id="cargo" placeholder="Cargo">
                 </div>
                 <div class="form-item">
                     <label for="fecha_inicio">Fecha Inicio</label>
@@ -60,8 +60,8 @@
                 <table id="rows" class="table table-striped table-hover" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Título</th>
-                            <th>Institución</th>
+                            <th>Empresa</th>
+                            <th>Cargo</th>
                             <th>Fecha de Inicio</th>
                             <th>Fecha de Fin</th>
                             <th>Egresado Id</th>
@@ -69,30 +69,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for estudio in estudios %}
+                        {% for experiencia in experiencias %}
                             <tr>
-                                {% if estudio.titulo %}
-                                	<td>{{ estudio.titulo }}</td>
+                                {% if experiencia.empresa %}
+                                	<td>{{ experiencia.empresa }}</td>
                                 {% else %}
                                     <td>Ninguno</td>
                                 {% endif %}
-                                {% if estudio.institucion %}
-                                    <td>{{ estudio.institucion }}</td>
+                                {% if experiencia.cargo %}
+                                    <td>{{ experiencia.cargo }}</td>
                                 {% else %}
                                     <td>Ninguno</td>
                                 {% endif %}
-                                {% if estudio.fecha_inicio %}
-                                    <td>{{ estudio.fecha_inicio }}</td>
+                                {% if experiencia.fecha_inicio %}
+                                    <td>{{ experiencia.fecha_inicio }}</td>
                                 {% else %}
                                     <td>S.F.</td>
                                 {% endif %}
-                                {% if estudio.fecha_fin %}
-                                    <td>{{ estudio.fecha_fin }}</td>
+                                {% if experiencia.fecha_fin %}
+                                    <td>{{ experiencia.fecha_fin }}</td>
                                 {% else %}
                                     <td>S.F.</td>
                                 {% endif %}
-                                {% if estudio.egresado_id %}
-                                    <td>{{ estudio.egresado_id }}</td>
+                                {% if experiencia.egresado_id %}
+                                    <td>{{ experiencia.egresado_id }}</td>
                                 {% else %}
                                     <td>Ninguno</td>
                                 {% endif %}
@@ -100,16 +100,16 @@
                                     <div class="actions">
                                         <form method="POST">
                                             {% csrf_token %}
-                                            <button type="button" data-formaction="{% url 'editar_estudio' estudio.id %}"
-                                                    data-estudio-titulo="{{ estudio.titulo }}"
-                                                    data-estudio-institucion="{{ estudio.institucion }}"
-                                                    data-estudio-fecha-inicio="{{ estudio.fecha_inicio|date:'Y-m-d' }}"
-                                                    data-estudio-fecha-fin="{{ estudio.fecha_fin|date:'Y-m-d' }}"
-                                                    data-estudio-egresado-id="{{ estudio.egresado_id }}"
+                                            <button type="button" data-formaction="{% url 'editar_experiencia' experiencia.id %}"
+                                                    data-experiencia-empresa="{{ experiencia.empresa }}"
+                                                    data-experiencia-cargo="{{ experiencia.cargo }}"
+                                                    data-experiencia-fecha-inicio="{{ experiencia.fecha_inicio|date:'Y-m-d' }}"
+                                                    data-experiencia-fecha-fin="{{ experiencia.fecha_fin|date:'Y-m-d' }}"
+                                                    data-experiencia-egresado-id="{{ experiencia.egresado_id }}"
                                                     class="bttn bttn-dark-primary">
                                                  <i class="fas fa-edit"></i>
                                              </button>
-                                            <button type="submit" formaction="{% url 'eliminar_estudio' estudio.id %}" class="bttn bttn-danger">
+                                            <button type="submit" formaction="{% url 'eliminar_experiencia' experiencia.id %}" class="bttn bttn-danger">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
@@ -121,8 +121,8 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Título</th>
-                            <th>Institución</th>
+                            <th>Empresa</th>
+                            <th>Cargo</th>
                             <th>Fecha de Inicio</th>
                             <th>Fecha de Fin</th>
                             <th>Egresado Id</th>
@@ -139,12 +139,12 @@
         <form method="post" class="edition-form">
             {% csrf_token %}
             <div class="form-item">
-                <label for="titulo">Título</label>
-                <input type="text" name="titulo" id="titulo" placeholder="Título">
+                <label for="empresa">Empresa</label>
+                <input type="text" name="empresa" id="empresa" placeholder="Empresa">
             </div>
             <div class="form-item">
-                <label for="institucion">Institución</label>
-                <input type="text" name="institucion" id="institucion" placeholder="Institución">
+                <label for="cargo">Cargo</label>
+                <input type="text" name="cargo" id="cargo" placeholder="Cargo">
             </div>
             <div class="form-item">
                 <label for="fecha_inicio">Fecha Inicio</label>
@@ -195,5 +195,5 @@
             });
         });
     </script>
-    <script src="{% static 'js/crud/estudios.js' %}"></script>
+    <script src="{% static 'js/crud/experiencias.js' %}"></script>
 {% endblock %}

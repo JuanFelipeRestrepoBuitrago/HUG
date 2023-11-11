@@ -119,6 +119,49 @@ class Experiencia(models.Model):
     fecha_fin = models.DateField(blank=True, null=True)
     egresado = models.ForeignKey(Egresado, models.DO_NOTHING, blank=True, null=True)
 
+    @staticmethod
+    def crear_experiencia(empresa, cargo, fecha_inicio, fecha_fin, egresado):
+        """
+        Esta funcion permite crear una experiencia en el sistema
+
+        @param empresa: empresa de la experiencia
+        @param cargo: cargo de la experiencia
+        @param fecha_inicio: fecha de inicio de la experiencia
+        @param fecha_fin: fecha de fin de la experiencia
+        @param egresado: egresado de la experiencia
+        @return: retorna la experiencia creada
+        """
+        experiencia = Experiencia(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin, egresado=egresado)
+        experiencia.save()
+
+        return experiencia
+
+    def actualizar_experiencia(self, empresa=None, cargo=None, fecha_inicio=None, fecha_fin=None, egresado=None):
+        """
+        Esta funcion permite actualizar una experiencia en el sistema
+
+        @param empresa: empresa de la experiencia
+        @param cargo: cargo de la experiencia
+        @param fecha_inicio: fecha de inicio de la experiencia
+        @param fecha_fin: fecha de fin de la experiencia
+        @param egresado: egresado de la experiencia
+        """
+        self.empresa = empresa
+        self.cargo = cargo
+        self.fecha_inicio = fecha_inicio
+        self.fecha_fin = fecha_fin
+        self.egresado = egresado
+
+        self.save()
+
+        return self
+
+    def eliminar_experiencia(self):
+        """
+        Esta funcion permite eliminar una experiencia en el sistema
+        """
+        self.delete()
+
     class Meta:
         managed = False
         db_table = 'experiencia'

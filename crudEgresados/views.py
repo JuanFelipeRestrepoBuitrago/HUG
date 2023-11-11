@@ -1,6 +1,6 @@
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from .models import Egresado, Estudio
+from .models import Egresado, Estudio, Experiencia
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -224,3 +224,113 @@ def editar_estudio(request, estudio_id):
         messages.error(request, e)
     finally:
         return redirect('estudios')
+
+
+@login_required
+def experiencias(request):
+    """
+    Esta función permite listar las experiencias en el sistema. También permite crear, actualizar y eliminar
+    experiencias con formularios que redirigen a la página con la acción correspondiente.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    # Si el usuario es un usuario normal, se redirige a la página de inicio
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method == 'GET':
+        # Se obtienen las experiencias del sistema
+        experiencias_objects = Experiencia.objects.all()[:1000]
+        # Renderiza la página de experiencias con las experiencias obtenidas
+        return render(request, 'experiencias.html', {
+            'experiencias': experiencias_objects
+        })
+    elif request.method == 'POST':
+        # Se obtienen los datos del formulario
+        empresa = request.POST.get('empresa')
+        if empresa == '' or empresa == ' ':
+            empresa = None
+        cargo = request.POST.get('cargo')
+        if cargo == '' or cargo == ' ':
+            cargo = None
+        fecha_inicio = request.POST.get('fecha_inicio')
+        if fecha_inicio == '' or fecha_inicio == ' ':
+            fecha_inicio = None
+        fecha_fin = request.POST.get('fecha_fin')
+        if fecha_fin == '' or fecha_fin == ' ':
+            fecha_fin = None
+        egresado = request.POST.get('egresado')
+        egresado = Egresado.objects.get(id=egresado)
+
+        try:
+            # Se crea la experiencia
+            Experiencia.crear_experiencia(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio,
+                                          fecha_fin=fecha_fin, egresado=egresado)
+            messages.success(request, 'Experiencia creada correctamente')
+        except IntegrityError as e:
+            messages.error(request, e)
+        finally:
+            return redirect('experiencias')
+
+
+@login_required
+def eliminar_experiencia(request, experiencia_id):
+    """
+    Esta función permite eliminar una experiencia del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param experiencia_id: Int, identificador de la experiencia a eliminar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('experiencias')
+
+    # Se obtiene la experiencia a eliminar
+    experiencia = Experiencia.objects.get(id=experiencia_id)
+    # Se elimina la experiencia
+    experiencia.eliminar_experiencia()
+
+    messages.success(request, 'Experiencia eliminada correctamente')
+    return redirect('experiencias')
+
+
+@login_required
+def editar_experiencia(request, experiencia_id):
+    """
+    Esta función permite editar una experiencia del sistema.
+    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+    @param experiencia_id: Int, identificador de la experiencia a editar.
+    @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+    """
+    if request.user.user_type == 'user':
+        return redirect('inicio')
+    if request.method != 'POST':
+        return redirect('experiencias')
+
+    # Se obtiene la experiencia a editar
+    experiencia = Experiencia.objects.get(id=experiencia_id)
+
+    # Se obtienen los datos del formulario
+    empresa = request.POST.get('empresa')
+    if empresa == '' or empresa == ' ':
+        empresa = None
+    cargo = request.POST.get('cargo')
+    if cargo == '' or cargo == ' ':
+        cargo = None
+    fecha_inicio = request.POST.get('fecha_inicio')
+    if fecha_inicio == '' or fecha_inicio == ' ':
+        fecha_inicio = None
+    fecha_fin = request.POST.get('fecha_fin')
+    if fecha_fin == '' or fecha_fin == ' ':
+        fecha_fin = None
+    egresado = request.POST.get('egresado')
+    egresado = Egresado.objects.get(id=egresado)
+
+    try:
+        # Se actualiza la experiencia
+        experiencia.actualizar_experiencia(empresa=empresa, cargo=cargo, fecha_inicio=fecha_inicio,
+                                           fecha_fin=fecha_fin, egresado=egresado)
+        messages.success(request, 'Experiencia actualizada correctamente')
+    except IntegrityError as e:
+        messages.error(request, e)
+    finally:
+        return redirect('experiencias')

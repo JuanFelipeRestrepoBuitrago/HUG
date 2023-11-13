@@ -33,6 +33,7 @@ class CustomUser(AbstractUser):
         username = CustomUser.objects.get(Q(username=username) | Q(email=username)).username
         # Se autentica el usuario
         user = authenticate(request, username=username, password=password)
+        print(user)
         if user is not None:
             # Se inicia sesion
             login(request, user)

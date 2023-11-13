@@ -4,7 +4,6 @@ from .models import Egresado, Estudio, Experiencia, Sector, SectoresEgresados
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-
 @login_required
 def egresados(request):
     """

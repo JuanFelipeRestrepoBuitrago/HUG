@@ -74,10 +74,10 @@ am5.ready(function () {
     fetchAndSetGrafica(grafica.nombre, root, grafica.valueField, grafica.categoryField);
   });
 
+}); // end am5.ready()
 
+am5.ready(function () {
 // Grafica2 ---------------------------------------------------------------------------------------
-
-
 var root2 = am5.Root.new("chartdiv2");
 
 
@@ -174,7 +174,4 @@ series.labels.template.setAll({
 // https://www.amcharts.com/docs/v5/concepts/animations/
 series.appear(1000);
 chart.appear(1000, 100);
-
-// Grafica3 ---------------------------------------------------------------------------------------
-
 }); // end am5.ready()

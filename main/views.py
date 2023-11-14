@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from crudEgresados.models import Egresado
+from crudEgresados.models import Egresado, SectoresEgresados, Sector
 from django.db.models import Count, Window, F, Avg, Count
 from django.http import JsonResponse
 def home(request):
@@ -88,3 +88,16 @@ def grafica_dinamica5(request):
         data.append(list([int(egresado['experiencia_meses']), int(egresado['salario'])]))
 
     return JsonResponse(data, safe=False)
+
+def grafica_dinamica6(request):
+    """
+    Esta función realiza una consulta que obtiene los 15 sectores laborales a los que más egresados están asociados
+    @param request:
+    @return data: retorna un json con los datos
+    """
+    egresados = Sector.objects.annotate(cantidad=Count('sectoresegresados__egresado')).order_by('-cantidad')[:15]
+    data = list([])
+    for objeto in egresados:
+        data.append({objeto.nombre:objeto.cantidad})
+
+    return  JsonResponse(data, safe=False)

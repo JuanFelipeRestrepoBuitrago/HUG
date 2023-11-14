@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         """
-        Esta funcion permite obtener el nombre de usuario cuando se imprime un objeto de la clase CustomUser
+        Esta función permite obtener el nombre de usuario cuando se imprime un objeto de la clase CustomUser
         @return: retorna el nombre de usuario
         """
         return self.username
@@ -22,14 +22,14 @@ class CustomUser(AbstractUser):
     @staticmethod
     def iniciar_sesion(request, username, password):
         """
-        Esta funcion permite iniciar sesion en el sistema
+        Esta función permite iniciar sesion en el sistema
 
-        @param request: HttpRequest, objeto que contiene la informacion sobre la solicitud web actual
-        @param username: nombre de usuario o correo electronico
+        @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual
+        @param username: nombre de usuario o correo electrónico
         @param password: contraseña
         @return:
         """
-        # Recupera el nombre de usuario si se ingreso el correo electronico
+        # Recupera el nombre de usuario si se ingresó el correo electrónico
         username = CustomUser.objects.get(Q(username=username) | Q(email=username)).username
         # Se autentica el usuario
         user = authenticate(request, username=username, password=password)
@@ -43,9 +43,9 @@ class CustomUser(AbstractUser):
     @staticmethod
     def cerrar_sesion(request):
         """
-        Esta funcion permite cerrar sesion en el sistema
+        Esta función permite cerrar sesion en el sistema
 
-        @param request: HttpRequest, objeto que contiene la informacion sobre la solicitud web actual
+        @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual
         """
 
         # Se cierra sesion
@@ -54,7 +54,7 @@ class CustomUser(AbstractUser):
     @staticmethod
     def registrarse(request, username, email, first_name, last_name, institution, password, confirm_password):
         """
-        Esta funcion permite registrar un usuario en el sistema
+        Esta función permite registrar un usuario en el sistema
 
         @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual
         @param username: nombre de usuario

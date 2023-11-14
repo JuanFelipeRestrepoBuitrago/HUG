@@ -3,25 +3,43 @@ from django.shortcuts import render, redirect
 from .models import CustomUser
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from abc import ABC, abstractmethod
+from django.views import View
 
 
-def iniciar_sesion(request):
-    """
-    Esta función permite iniciar sesión en el sistema.
+class UsuariosView(View):
+    template_name = ''
 
-    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
-    @return: HttpResponse, objeto que contiene la respuesta HTTP que se
-    enviará al navegador web que realizó la solicitud.
-    """
+    def get(self, request):
+        """
+        Esta función permite renderizar la página de la vista.
+        @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+        @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+        """
+        if request.user.is_authenticated:
+            return redirect('inicio')
+        return render(request, self.template_name)
 
-    # Si el usuario ya está autenticado, se redirige a la página de inicio.
-    if request.user.is_authenticated:
-        return redirect('inicio')
-    # Si el método de la petición es GET, se muestra el formulario de inicio de sesión.
-    elif request.method == 'GET':
-        return render(request, 'signin.html')
-    # Si el método de la petición es POST, se intenta iniciar sesión.
-    elif request.method == 'POST':
+    @abstractmethod
+    def post(self, request):
+        """
+        Esta función permite procesar la información enviada por el usuario a través de un formulario.
+        @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+        @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+        """
+        pass
+
+
+class IniciarSesionView(UsuariosView):
+    template_name = 'signin.html'
+
+    def post(self, request):
+        """
+        Esta función permite iniciar sesión en el sistema.
+        @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+        @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+        """
         username = request.POST['username']
         password = request.POST['password']
         try:
@@ -40,37 +58,36 @@ def iniciar_sesion(request):
             return redirect('login')
 
 
-@login_required
-def cerrar_sesion(request):
-    """
-    Esta función permite cerrar sesión en el sistema.
-
-    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
-    @return: HttpResponse, objeto que contiene la respuesta HTTP que se
-    enviará al navegador web que realizó la solicitud.
-    """
-
-    CustomUser.cerrar_sesion(request)
-    return redirect('inicio')
-
-
-def registrarse(request):
-    """
-    Esta función permite registrar un usuario en el sistema.
-
-    @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
-    @return: HttpResponse, objeto que contiene la respuesta HTTP que se
-    enviará al navegador web que realizó la solicitud.
-    """
-
-    # Si el usuario ya está autenticado, se redirige a la página de inicio.
-    if request.user.is_authenticated:
+@method_decorator(login_required, name='dispatch')
+class CerrarSesionView(UsuariosView):
+    def get(self, request):
+        """
+        Esta función permite cerrar sesión en el sistema.
+        @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+        @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+        """
+        CustomUser.cerrar_sesion(request)
         return redirect('inicio')
-    # Si el método de la petición es GET, se muestra el formulario de registro.
-    elif request.method == 'GET':
-        return render(request, 'signup.html')
-    # Si el método de la petición es POST, se intenta registrar el usuario.
-    elif request.method == 'POST':
+
+    def post(self, request):
+        """
+        Esta función permite cerrar sesión en el sistema.
+        @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+        @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+        """
+        CustomUser.cerrar_sesion(request)
+        return redirect('inicio')
+
+
+class RegistrarseView(UsuariosView):
+    template_name = 'signup.html'
+
+    def post(self, request):
+        """
+        Esta función permite registrar un usuario en el sistema.
+        @param request: HttpRequest, objeto que contiene la información sobre la solicitud web actual.
+        @return: HttpResponse, objeto que contiene la respuesta HTTP que se enviará al navegador web que realizó la
+        """
         username = request.POST['username']
         email = request.POST['email']
         first_name = request.POST['first_name']

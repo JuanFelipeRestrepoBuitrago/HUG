@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from crudEgresados.models import Egresado
+from crudEgresados.models import Egresado, SectoresEgresados, Sector
 from django.db.models import Count, Window, F, Avg, Count
 from django.http import JsonResponse
 def home(request):
@@ -58,12 +58,21 @@ def grafica_dinamica3(request):
 
 def grafica_dinamica4(request):
     """
-    Esta funcion realiza una consulta que obtiene los datos de nivel_educativo y numero_egresados correspondientes a cada nivel educativo
+    Esta funcion realiza una consulta que la experiencia promedio en meses de los egresados dependiendo su nivel educativo
     @param request:
     @return: data: retorna un json con los datos de nivel_educativo y numero_egresados
     """
-    egresados = Egresado.objects.values('nivel_educativo').annotate(numero_egresados=Count('id'))
+    egresados = Egresado.objects.values('nivel_educativo').annotate(experiencia_promedio=Avg('experiencia_meses'))
     data = list(egresados)
+
+    for diccionario in data:
+        diccionario['experiencia_promedio'] = int(diccionario['experiencia_promedio'])
+        if diccionario['nivel_educativo'] == "Bachillerato (grados 6°, 7° u 8°)":
+            diccionario['nivel_educativo'] = "Bachillerato (6°, 7° u 8°)"
+        if diccionario['nivel_educativo'] == "Bachillerato (grados 9°, 10° y 11°)":
+            diccionario['nivel_educativo'] = "Bachillerato (9°, 10° y 11°)"
+        if diccionario['nivel_educativo'] == "Especialización/ Maestría":
+            diccionario['nivel_educativo'] = "Postgrado"
 
     return JsonResponse(data, safe=False)
 
@@ -79,3 +88,16 @@ def grafica_dinamica5(request):
         data.append(list([int(egresado['experiencia_meses']), int(egresado['salario'])]))
 
     return JsonResponse(data, safe=False)
+
+def grafica_dinamica6(request):
+    """
+    Esta función realiza una consulta que obtiene los 15 sectores laborales a los que más egresados están asociados
+    @param request:
+    @return data: retorna un json con los datos
+    """
+    egresados = Sector.objects.annotate(cantidad=Count('sectoresegresados__egresado')).order_by('-cantidad')[:15]
+    data = list([])
+    for objeto in egresados:
+        data.append({objeto.nombre:objeto.cantidad})
+
+    return  JsonResponse(data, safe=False)

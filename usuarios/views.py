@@ -11,6 +11,23 @@ from django.views import View
 class UsuariosView(View):
     template_name = ''
 
+    @abstractmethod
+    def obtener_contexto(self, elementos):
+        """
+        Esta función permite obtener el contexto para renderizar la página.
+
+        @param elementos: Lista de elementos a mostrar en la página.
+        """
+        pass
+
+    @abstractmethod
+    def obtener_objetos(self):
+        """
+        Esta función permite obtener los objetos a mostrar en la página. Esta función debe ser implementada por las
+        clases hijas.
+        """
+        pass
+
     def get(self, request):
         """
         Esta función permite renderizar la página de la vista.
@@ -19,7 +36,8 @@ class UsuariosView(View):
         """
         if request.user.is_authenticated:
             return redirect('inicio')
-        return render(request, self.template_name)
+        elementos = self.obtener_objetos()
+        return render(request, self.template_name, self.obtener_contexto(elementos))
 
     @abstractmethod
     def post(self, request):
@@ -33,6 +51,13 @@ class UsuariosView(View):
 
 class IniciarSesionView(UsuariosView):
     template_name = 'signin.html'
+    
+    def obtener_contexto(self, elementos):
+        if elementos is None:
+            elementos = {}
+
+    def obtener_objetos(self):
+        return None
 
     def post(self, request):
         """
@@ -81,6 +106,13 @@ class CerrarSesionView(View):
 
 class RegistrarseView(UsuariosView):
     template_name = 'signup.html'
+
+    def obtener_contexto(self, elementos):
+        if elementos is None:
+            elementos = {}
+
+    def obtener_objetos(self):
+        return None
 
     def post(self, request):
         """

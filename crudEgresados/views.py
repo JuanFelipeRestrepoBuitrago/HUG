@@ -571,6 +571,7 @@ class SectoresEgresadosEliminarView(ObjetosEliminarView):
         return redirect('sectores_egresados')
 
 
+
 @method_decorator(login_required, name='dispatch')
 class SectoresEgresadosEditarView(ObjetosEditarView):
     def post(self, request, sector_egresado_id):

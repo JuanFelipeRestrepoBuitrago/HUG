@@ -59,7 +59,7 @@ class IniciarSesionView(UsuariosView):
 
 
 @method_decorator(login_required, name='dispatch')
-class CerrarSesionView(UsuariosView):
+class CerrarSesionView(View):
     def get(self, request):
         """
         Esta función permite cerrar sesión en el sistema.

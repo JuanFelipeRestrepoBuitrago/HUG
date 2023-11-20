@@ -95,9 +95,9 @@ def grafica_dinamica6(request):
     @param request:
     @return data: retorna un json con los datos
     """
-    egresados = Sector.objects.annotate(cantidad=Count('sectoresegresados__egresado')).order_by('-cantidad')[:15]
+    egresados = Sector.objects.annotate(cantidad=Count('sectoresegresados__egresado'))
     data = list([])
     for objeto in egresados:
-        data.append({objeto.nombre:objeto.cantidad})
+        data.append({"category":objeto.nombre, "value":objeto.cantidad})
 
     return  JsonResponse(data, safe=False)

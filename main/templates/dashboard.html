@@ -9,7 +9,7 @@
     {% block extra_head %}
 
         <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="{% static 'css/main/Dashboard.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main/NewDashboard.css' %}">
     {% endblock %}
 
     <h2 id="titulo-principal">Dashboard</h2>
@@ -32,7 +32,7 @@
     <!-- Logo Institucional Y Grafico de Columnas -->
     <div class="contenedor">
       <div class="columna-estrecha" id="columna-estrecha2">
-          <img id="logo_institucion" src={% static 'img/EAFITlogo.png' %}/>
+          <img id="logo_institucion" style="width: 65%; height: auto" src={% static 'img/LogoEAFIT.png' %}/>
       </div>
       <div class="columna-ancha" id="columna-ancha2">
         <h5 style="margin-left: 40%; margin-top: 1.5%">Egresados por cada Sector Laboral</h5>

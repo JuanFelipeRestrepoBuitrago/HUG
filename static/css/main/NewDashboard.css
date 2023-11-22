@@ -1,6 +1,9 @@
 body {
-    /* background-color: #e0f4ff */
-    background: url('../../img/pattern.svg');
+    background-image: url('../../img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-color: #f0f0f0;
 }
 
 /*  Grafica columnas  */
@@ -78,9 +81,11 @@ main {
 }
 
 #columna-estrecha2 {
+    color: #fffbfb;
     border-top-left-radius: 50px;
     border-bottom-right-radius: 50px;
     flex-basis: 42%;
+    margin-left: 3%;
 }
 
 #columna-estrecha3 {

@@ -101,7 +101,23 @@
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script>
             $(document).ready(function() {
-                $('#example').DataTable();
+                $('#example').DataTable({
+                    language: {
+                        lengthMenu: "Mostrar _MENU_ registros por página",
+                        zeroRecords: "Ningún usuario encontrado",
+                        info: "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+                        infoEmpty: "Ningún usuario encontrado",
+                        infoFiltered: "(filtrados desde _MAX_ registros totales)",
+                        search: "Buscar:",
+                        loadingRecords: "Cargando...",
+                        paginate: {
+                            first: "Primero",
+                            last: "Último",
+                            next: "Siguiente",
+                            previous: "Anterior"
+                        }
+                    }
+                });
             });
         </script>
 

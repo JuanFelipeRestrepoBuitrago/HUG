@@ -1,5 +1,4 @@
 body {
-    /* background-color: #e0f4ff */
     background-image: url('../../img/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -82,6 +81,7 @@ main {
 }
 
 #columna-estrecha2 {
+    color: #fffbfb;
     border-top-left-radius: 50px;
     border-bottom-right-radius: 50px;
     flex-basis: 42%;
